@@ -4,6 +4,8 @@
 
 Исправление приложения с выходом за границы, use-after-free, утечкой памяти, логическими ошибками и гонкой данных. Корректность проверяется тестами, эталоном, LLDB, Miri, Valgrind и sanitizer'ами; производительность сравнивается воспроизводимыми бенчмарками и профилями.
 
+Разработка и локальные проверки выполнялись на macOS. Поэтому для отладки использован LLDB, а для профилирования на хосте — `sample`. Проверки Valgrind и профилирование с `perf` выполнялись в Linux-контейнере через Docker; ниже приведены команды для обоих окружений.
+
 В основной библиотеке нет `unsafe`; это закреплено `#![forbid(unsafe_code)]`. Использованы изученные конструкции: срезы, итераторы, стандартные коллекции, владение, потоки, `Arc` и атомарные операции. Производственных зависимостей нет, Criterion и снимок эталона используются только при разработке.
 
 ## Сборка
@@ -158,8 +160,13 @@ bash scripts/original-sanitizers.sh
 
 `scripts/original-valgrind.sh` запускается в Linux-окружении аналогично основному Valgrind. Эти диагностические скрипты ожидают ошибки исходника; в логах остаются реальные ненулевые коды. `scripts/original-probes.rs` намеренно вызывает старый unsafe API только внутри исходной копии и не входит в финальную библиотеку.
 
-## CI и сдача
+## CI
 
 GitHub Actions запускается при `push` и `pull_request`: сначала форматирование и Clippy, затем сборка, тесты, проверки бенчмарков и demo. Отдельная задача с `needs: lint` выполняет Miri, Valgrind, ASan и TSan и публикует артефакты даже при ошибке. Настройка workflow готова; удалённый запуск GitHub Actions ещё не проверен.
 
-Справочники инструментов: [Miri](https://github.com/rust-lang/miri), [sanitizer'ы Rust](https://doc.rust-lang.org/unstable-book/compiler-flags/sanitizer.html), [Valgrind](https://valgrind.org/docs/manual/manual-core.html), [Criterion](https://bheisler.github.io/criterion.rs/book/user_guide/comparing_functions.html), [Inferno](https://github.com/jonhoo/inferno).
+## Справочники инструментов
+
+- [Miri](https://github.com/rust-lang/miri)
+- [sanitizer'ы Rust](https://doc.rust-lang.org/unstable-book/compiler-flags/sanitizer.html)
+- [Valgrind](https://valgrind.org/docs/manual/manual-core.html)
+- [Criterion](https://bheisler.github.io/criterion.rs/book/user_guide/comparing_functions.html), [Inferno](https://github.com/jonhoo/inferno)
