@@ -1,0 +1,63 @@
+UTC: 2026-10-06T18:05:35Z
+Linux 3d19bb1ca1c2 7.0.14-linuxkit #1 SMP PREEMPT Fri Sep 18 10:19:32 UTC 2026 aarch64 GNU/Linux
+rustc 1.96.1 (31fca3adb 2026-06-26)
+binary: rustc
+commit-hash: 31fca3adb283cc9dfd56b49cdee9a96eb9c96ffd
+commit-date: 2026-06-26
+host: aarch64-unknown-linux-gnu
+release: 1.96.1
+LLVM version: 22.1.2
+1.96.1-aarch64-unknown-linux-gnu (active, default)
+Команда: valgrind --suppressions=scripts/valgrind.supp --error-exitcode=99 --leak-check=full --show-leak-kinds=all --errors-for-leak-kinds=definite\,indirect\,possible /work/target/linux/debug/deps/baseline-95ea78fbe8596f9f --test-threads=1
+==231== Memcheck, a memory error detector
+==231== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==231== Using Valgrind-3.19.0 and LibVEX; rerun with -h for copyright info
+==231== Command: /work/target/linux/debug/deps/baseline-95ea78fbe8596f9f --test-threads=1
+==231== 
+
+running 1 test
+test safe_baseline_matches_fixed_behavior ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.06s
+
+==231== 
+==231== HEAP SUMMARY:
+==231==     in use at exit: 592 bytes in 2 blocks
+==231==   total heap usage: 216 allocs, 214 frees, 31,700 bytes allocated
+==231== 
+==231== 544 bytes in 1 blocks are still reachable in loss record 2 of 2
+==231==    at 0x48850C8: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-arm64-linux.so)
+==231==    by 0x18419F: alloc (alloc.rs:101)
+==231==    by 0x18419F: alloc_impl_runtime (alloc.rs:210)
+==231==    by 0x18419F: alloc_impl (alloc.rs:332)
+==231==    by 0x18419F: allocate (alloc.rs:449)
+==231==    by 0x18419F: try_new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:614)
+==231==    by 0x18419F: new_uninit_in<alloc::collections::btree::node::LeafNode<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo>, alloc::alloc::Global> (boxed.rs:581)
+==231==    by 0x18419F: new<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:87)
+==231==    by 0x18419F: new_leaf<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (node.rs:225)
+==231==    by 0x18419F: insert_entry<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:403)
+==231==    by 0x18419F: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (entry.rs:377)
+==231==    by 0x18419F: insert<usize, std::sys::pal::unix::stack_overflow::thread_info::ThreadInfo, alloc::alloc::Global> (map.rs:1052)
+==231==    by 0x18419F: std::sys::pal::unix::stack_overflow::thread_info::set_current_info (thread_info.rs:122)
+==231==    by 0x17DCE7: init (stack_overflow.rs:179)
+==231==    by 0x17DCE7: init (mod.rs:41)
+==231==    by 0x17DCE7: init (rt.rs:118)
+==231==    by 0x17DCE7: {closure#0} (rt.rs:173)
+==231==    by 0x17DCE7: do_call<std::rt::lang_start_internal::{closure_env#0}, isize> (panicking.rs:581)
+==231==    by 0x17DCE7: catch_unwind<isize, std::rt::lang_start_internal::{closure_env#0}> (panicking.rs:544)
+==231==    by 0x17DCE7: catch_unwind<std::rt::lang_start_internal::{closure_env#0}, isize> (panic.rs:359)
+==231==    by 0x17DCE7: std::rt::lang_start_internal (rt.rs:171)
+==231==    by 0x11D57B: std::rt::lang_start (library/std/src/rt.rs:205)
+==231==    by 0x11D2FF: main (in /work/target/linux/debug/deps/baseline-95ea78fbe8596f9f)
+==231== 
+==231== LEAK SUMMARY:
+==231==    definitely lost: 0 bytes in 0 blocks
+==231==    indirectly lost: 0 bytes in 0 blocks
+==231==      possibly lost: 0 bytes in 0 blocks
+==231==    still reachable: 544 bytes in 1 blocks
+==231==         suppressed: 48 bytes in 1 blocks
+==231== 
+==231== For lists of detected and suppressed errors, rerun with: -s
+==231== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 1 from 1)
+
+EXIT_STATUS=0

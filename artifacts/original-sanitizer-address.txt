@@ -1,0 +1,529 @@
+UTC: 2026-10-06T17:32:18Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+Команда: env CARGO_TARGET_DIR=/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address RUSTFLAGS=-Zsanitizer=address\ -Cforce-frame-pointers=yes cargo +nightly test --locked -Zbuild-std --target aarch64-apple-darwin --test probes owned_value_remains_alive -- --exact --test-threads=1
+   Compiling compiler_builtins v0.1.160 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling core v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core)
+   Compiling libc v0.2.189
+   Compiling object v0.39.1
+   Compiling std v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/std)
+   Compiling test v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/test)
+   Compiling proc-macro2 v1.0.103
+   Compiling quote v1.0.42
+   Compiling unicode-ident v1.0.22
+   Compiling crossbeam-utils v0.8.21
+   Compiling serde_core v1.0.228
+   Compiling zerocopy v0.8.31
+   Compiling autocfg v1.5.0
+   Compiling serde v1.0.228
+   Compiling rayon-core v1.13.0
+   Compiling serde_json v1.0.145
+   Compiling num-traits v0.2.19
+   Compiling libc v0.2.178
+   Compiling syn v2.0.111
+   Compiling zerocopy-derive v0.8.31
+   Compiling serde_derive v1.0.228
+   Compiling rustc-std-workspace-core v1.99.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-core)
+   Compiling alloc v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc)
+   Compiling memchr v2.8.3
+   Compiling adler2 v2.0.1
+   Compiling rustc-demangle v0.1.28
+   Compiling cfg-if v1.0.4
+   Compiling rustc-literal-escaper v0.0.8
+   Compiling unwind v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/unwind)
+   Compiling rustc-std-workspace-alloc v1.99.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
+   Compiling panic_abort v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
+   Compiling panic_unwind v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
+   Compiling gimli v0.34.0
+   Compiling std_detect v0.1.5 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
+   Compiling miniz_oxide v0.9.1
+   Compiling hashbrown v0.17.1
+   Compiling addr2line v0.27.1
+   Compiling rustc-std-workspace-std v1.99.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-std)
+   Compiling proc_macro v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
+   Compiling getopts v0.2.24
+   Compiling either v1.15.0
+   Compiling ryu v1.0.20
+   Compiling memchr v2.7.6
+   Compiling itoa v1.0.15
+   Compiling plotters-backend v0.3.7
+   Compiling regex-syntax v0.8.8
+   Compiling clap_lex v0.7.6
+   Compiling anstyle v1.0.13
+   Compiling ciborium-io v0.2.2
+   Compiling itertools v0.10.5
+   Compiling clap_builder v4.5.53
+   Compiling plotters-svg v0.3.7
+   Compiling crossbeam-epoch v0.9.18
+   Compiling same-file v1.0.6
+   Compiling cast v0.3.0
+   Compiling broken-app v0.1.0 (/Users/a.baranov/RustProjects/broken-app/target/original)
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:60:15
+   |
+60 |     let val = *raw;
+   |               ^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+note: an unsafe function restricts its caller, but its body is safe by default
+  --> src/lib.rs:57:1
+   |
+57 | pub unsafe fn use_after_free() -> i32 {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+   = note: `#[warn(unsafe_op_in_unsafe_fn)]` (part of `#[warn(rust_2024_compatibility)]`) on by default
+
+warning[E0133]: call to unsafe function `std::boxed::Box::<T>::from_raw` is unsafe and requires unsafe block
+  --> src/lib.rs:61:10
+   |
+61 |     drop(Box::from_raw(raw));
+   |          ^^^^^^^^^^^^^^^^^^ call to unsafe function
+   |
+   = note: consult the function's documentation for information on how to avoid undefined behavior
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:62:11
+   |
+62 |     val + *raw
+   |           ^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+
+   Compiling crossbeam-deque v0.8.6
+   Compiling plotters v0.3.7
+   Compiling walkdir v2.5.0
+   Compiling is-terminal v0.4.17
+   Compiling oorandom v11.1.5
+   Compiling once_cell v1.21.3
+   Compiling anes v0.1.6
+   Compiling regex-automata v0.4.13
+   Compiling criterion-plot v0.5.0
+For more information about this error, try `rustc --explain E0133`.
+warning: `broken-app` (lib) generated 3 warnings (run `cargo fix --lib -p broken-app` to apply 1 suggestion)
+   Compiling rayon v1.11.0
+   Compiling half v2.7.1
+   Compiling clap v4.5.53
+   Compiling ciborium-ll v0.2.2
+   Compiling tinytemplate v1.2.1
+   Compiling ciborium v0.2.2
+   Compiling regex v1.12.2
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.09s
+     Running tests/probes.rs (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2)
+
+running 1 test
+test owned_value_remains_alive ... =================================================================
+==71685==ERROR: AddressSanitizer: heap-use-after-free on address 0x602000001010 at pc 0x000100078b40 bp 0x00016ff981d0 sp 0x00016ff981c8
+READ of size 4 at 0x602000001010 thread T1
+==71685==WARNING: external symbolizer didn't start up correctly!
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100078b3c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006cfc0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006d568"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006e288"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000ac784"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10016afac"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10015e92c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017743c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100139ed8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010cf4c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10011e26c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010bb94"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000c0bc8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017bcbc"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100178d9c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100179504"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1001eb8d4"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100122b44"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100139d14"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010cc34"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10011e26c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010bea8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000c09f4"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10012202c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000a7904"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003d6a50"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1002c2ab0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10152b170"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x18c481c54"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x18c47cc18"
+    #0 0x000100078b3c in _RNvCsitKbp5eEZIx_10broken_app14use_after_free+0x204 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000cb3c)
+    #1 0x00010006cfc0 in _RNvCshGCstYZo9Ci_6probess_25owned_value_remains_alive+0x104 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100000fc0)
+    #2 0x00010006d568 in _RNCNvCshGCstYZo9Ci_6probes25owned_value_remains_alive0B3_+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100001568)
+    #3 0x00010006e288 in _RNvYNCNvCshGCstYZo9Ci_6probes25owned_value_remains_alive0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceB6_+0x10 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100002288)
+    #4 0x0001000ac784 in _RNvYFEINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtB9_3ops8function6FnOnceuE9call_onceCs1uzm0ZeRj29_4test+0x10 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100040784)
+    #5 0x00010016afac in _RINvCs1uzm0ZeRj29_4test28___rust_begin_short_backtraceINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEFEBQ_EB2_+0x17c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000fefac)
+    #6 0x00010015e92c in _RNvMs2_NtCs1uzm0ZeRj29_4test5typesNtB5_12RunnableTest3run+0x1d4 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000f292c)
+    #7 0x00010017743c in _RNCNvCs1uzm0ZeRj29_4test19run_test_in_process0B3_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010b43c)
+    #8 0x000100139ed8 in _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtNtB9_3ops8function6FnOnceuE9call_onceB1d_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000cded8)
+    #9 0x00010010cf4c in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtB11_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1Z_+0x1f8 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000a0f4c)
+    #10 0x00010011e26c in __rust_try+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b226c)
+    #11 0x00010010bb94 in _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtBP_5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EEB2P_+0x170 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10009fb94)
+    #12 0x0001000c0bc8 in _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtBN_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1L_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100054bc8)
+    #13 0x00010017bcbc in _RNvCs1uzm0ZeRj29_4test19run_test_in_process+0x604 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010fcbc)
+    #14 0x000100178d9c in _RNCNvCs1uzm0ZeRj29_4test8run_test0B3_+0x4fc (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010cd9c)
+    #15 0x000100179504 in _RNCNvCs1uzm0ZeRj29_4test8run_tests_0B3_+0x43c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010d504)
+    #16 0x0001001eb8d4 in _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1b_+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10017f8d4)
+    #17 0x000100122b44 in _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00B14_+0x1ac (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b6b44)
+    #18 0x000100139d14 in _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2e_+0x130 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000cdd14)
+    #19 0x00010010cc34 in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2L_+0x1c8 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000a0c34)
+    #20 0x00010011e26c in __rust_try+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b226c)
+    #21 0x00010010bea8 in _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EEB2C_+0x170 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10009fea8)
+    #22 0x0001000c09f4 in _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2x_+0x130 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000549f4)
+    #23 0x00010012202c in _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0B12_+0x200 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b602c)
+    #24 0x0001000a7904 in _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB17_+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10003b904)
+    #25 0x0001003d6a50 in _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std+0x16c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10036aa50)
+    #26 0x0001002c2ab0 in _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start+0x1dc (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100256ab0)
+    #27 0x00010152b170 in asan_thread_start(void*)+0x48 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-nightly_rt.asan.dylib:arm64+0x3b170)
+    #28 0x00018c481c54 in _pthread_start+0x84 (/usr/lib/system/libsystem_pthread.dylib:arm64e+0x6c54)
+    #29 0x00018c47cc18 in thread_start+0x4 (/usr/lib/system/libsystem_pthread.dylib:arm64e+0x1c18)
+
+0x602000001010 is located 0 bytes inside of 4-byte region [0x602000001010,0x602000001014)
+freed by thread T1 here:
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10152ef54"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10031585c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003fb3fc"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007a874"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007a528"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007a174"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007aaa0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000739e0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100072f00"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006e5ac"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100078a9c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006cfc0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006d568"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006e288"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000ac784"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10016afac"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10015e92c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017743c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100139ed8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010cf4c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10011e26c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010bb94"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000c0bc8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017bcbc"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100178d9c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100179504"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1001eb8d4"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100122b44"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100139d14"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010cc34"
+    #0 0x00010152ef54 in free+0x70 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-nightly_rt.asan.dylib:arm64+0x3ef54)
+    #1 0x00010031585c in _RNvNtNtNtCs5La0mFxbGLy_3std3sys5alloc4unix7deallocB7_+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1002a985c)
+    #2 0x0001003fb3fc in _RNvCsjMmYDGKcCRn_7___rustc13___rdl_dealloc+0x54 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10038f3fc)
+    #3 0x00010007a874 in _RNvNtCslaOPoLlewwo_5alloc5alloc15dealloc_nonnullCsitKbp5eEZIx_10broken_app+0x140 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000e874)
+    #4 0x00010007a528 in _RNvMs0_NtCslaOPoLlewwo_5alloc5allocNtB5_6Global23deallocate_impl_runtimeCsitKbp5eEZIx_10broken_app+0x13c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000e528)
+    #5 0x00010007a174 in _RNvMs0_NtCslaOPoLlewwo_5alloc5allocNtB5_6Global15deallocate_implCsitKbp5eEZIx_10broken_app+0x38 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000e174)
+    #6 0x00010007aaa0 in _RNvXs1_NtCslaOPoLlewwo_5alloc5allocNtB5_6GlobalNtNtCs90xp8bjXqcz_4core5alloc9Allocator10deallocateCsitKbp5eEZIx_10broken_app+0x24 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000eaa0)
+    #7 0x0001000739e0 in _RNvXs8_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxlENtNtNtCs90xp8bjXqcz_4core3ops4drop4Drop4dropCsitKbp5eEZIx_10broken_app+0x19c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000079e0)
+    #8 0x000100072f00 in _RINvNtCs90xp8bjXqcz_4core3ptr9drop_glueINtNtCslaOPoLlewwo_5alloc5boxed3BoxlEECsitKbp5eEZIx_10broken_app+0x48 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100006f00)
+    #9 0x00010006e5ac in _RINvNtCs90xp8bjXqcz_4core3mem4dropINtNtCslaOPoLlewwo_5alloc5boxed3BoxlEECsitKbp5eEZIx_10broken_app+0x104 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000025ac)
+    #10 0x000100078a9c in _RNvCsitKbp5eEZIx_10broken_app14use_after_free+0x164 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000ca9c)
+    #11 0x00010006cfc0 in _RNvCshGCstYZo9Ci_6probess_25owned_value_remains_alive+0x104 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100000fc0)
+    #12 0x00010006d568 in _RNCNvCshGCstYZo9Ci_6probes25owned_value_remains_alive0B3_+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100001568)
+    #13 0x00010006e288 in _RNvYNCNvCshGCstYZo9Ci_6probes25owned_value_remains_alive0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceB6_+0x10 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100002288)
+    #14 0x0001000ac784 in _RNvYFEINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtB9_3ops8function6FnOnceuE9call_onceCs1uzm0ZeRj29_4test+0x10 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100040784)
+    #15 0x00010016afac in _RINvCs1uzm0ZeRj29_4test28___rust_begin_short_backtraceINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEFEBQ_EB2_+0x17c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000fefac)
+    #16 0x00010015e92c in _RNvMs2_NtCs1uzm0ZeRj29_4test5typesNtB5_12RunnableTest3run+0x1d4 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000f292c)
+    #17 0x00010017743c in _RNCNvCs1uzm0ZeRj29_4test19run_test_in_process0B3_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010b43c)
+    #18 0x000100139ed8 in _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtNtB9_3ops8function6FnOnceuE9call_onceB1d_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000cded8)
+    #19 0x00010010cf4c in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtB11_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1Z_+0x1f8 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000a0f4c)
+    #20 0x00010011e26c in __rust_try+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b226c)
+    #21 0x00010010bb94 in _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtBP_5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EEB2P_+0x170 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10009fb94)
+    #22 0x0001000c0bc8 in _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtBN_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1L_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100054bc8)
+    #23 0x00010017bcbc in _RNvCs1uzm0ZeRj29_4test19run_test_in_process+0x604 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010fcbc)
+    #24 0x000100178d9c in _RNCNvCs1uzm0ZeRj29_4test8run_test0B3_+0x4fc (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010cd9c)
+    #25 0x000100179504 in _RNCNvCs1uzm0ZeRj29_4test8run_tests_0B3_+0x43c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010d504)
+    #26 0x0001001eb8d4 in _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1b_+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10017f8d4)
+    #27 0x000100122b44 in _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00B14_+0x1ac (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b6b44)
+    #28 0x000100139d14 in _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2e_+0x130 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000cdd14)
+    #29 0x00010010cc34 in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2L_+0x1c8 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000a0c34)
+
+previously allocated by thread T1 here:
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10152ee6c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003157a0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003fb38c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007aa10"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007a2f0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007a12c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10007aad4"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100079474"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100078974"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006cfc0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006d568"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006e288"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000ac784"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10016afac"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10015e92c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017743c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100139ed8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010cf4c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10011e26c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010bb94"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000c0bc8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017bcbc"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100178d9c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100179504"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1001eb8d4"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100122b44"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100139d14"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010cc34"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10011e26c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10010bea8"
+    #0 0x00010152ee6c in malloc+0x6c (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-nightly_rt.asan.dylib:arm64+0x3ee6c)
+    #1 0x0001003157a0 in _RNvNtNtNtCs5La0mFxbGLy_3std3sys5alloc4unix5allocB7_+0x178 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1002a97a0)
+    #2 0x0001003fb38c in _RNvCsjMmYDGKcCRn_7___rustc11___rdl_alloc+0x44 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10038f38c)
+    #3 0x00010007aa10 in _RNvNtCslaOPoLlewwo_5alloc5alloc5allocCsitKbp5eEZIx_10broken_app+0x138 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000ea10)
+    #4 0x00010007a2f0 in _RNvMs0_NtCslaOPoLlewwo_5alloc5allocNtB5_6Global18alloc_impl_runtimeCsitKbp5eEZIx_10broken_app+0x16c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000e2f0)
+    #5 0x00010007a12c in _RNvMs0_NtCslaOPoLlewwo_5alloc5allocNtB5_6Global10alloc_implCsitKbp5eEZIx_10broken_app+0x38 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000e12c)
+    #6 0x00010007aad4 in _RNvXs1_NtCslaOPoLlewwo_5alloc5allocNtB5_6GlobalNtNtCs90xp8bjXqcz_4core5alloc9Allocator8allocateCsitKbp5eEZIx_10broken_app+0x24 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000ead4)
+    #7 0x000100079474 in _RNvNtCslaOPoLlewwo_5alloc5boxed14box_new_uninitCsitKbp5eEZIx_10broken_app+0x2c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000d474)
+    #8 0x000100078974 in _RNvCsitKbp5eEZIx_10broken_app14use_after_free+0x3c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000c974)
+    #9 0x00010006cfc0 in _RNvCshGCstYZo9Ci_6probess_25owned_value_remains_alive+0x104 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100000fc0)
+    #10 0x00010006d568 in _RNCNvCshGCstYZo9Ci_6probes25owned_value_remains_alive0B3_+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100001568)
+    #11 0x00010006e288 in _RNvYNCNvCshGCstYZo9Ci_6probes25owned_value_remains_alive0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceB6_+0x10 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100002288)
+    #12 0x0001000ac784 in _RNvYFEINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtB9_3ops8function6FnOnceuE9call_onceCs1uzm0ZeRj29_4test+0x10 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100040784)
+    #13 0x00010016afac in _RINvCs1uzm0ZeRj29_4test28___rust_begin_short_backtraceINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEFEBQ_EB2_+0x17c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000fefac)
+    #14 0x00010015e92c in _RNvMs2_NtCs1uzm0ZeRj29_4test5typesNtB5_12RunnableTest3run+0x1d4 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000f292c)
+    #15 0x00010017743c in _RNCNvCs1uzm0ZeRj29_4test19run_test_in_process0B3_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010b43c)
+    #16 0x000100139ed8 in _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtNtB9_3ops8function6FnOnceuE9call_onceB1d_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000cded8)
+    #17 0x00010010cf4c in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtB11_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1Z_+0x1f8 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000a0f4c)
+    #18 0x00010011e26c in __rust_try+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b226c)
+    #19 0x00010010bb94 in _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtBP_5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EEB2P_+0x170 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10009fb94)
+    #20 0x0001000c0bc8 in _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtBN_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1L_+0x134 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100054bc8)
+    #21 0x00010017bcbc in _RNvCs1uzm0ZeRj29_4test19run_test_in_process+0x604 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010fcbc)
+    #22 0x000100178d9c in _RNCNvCs1uzm0ZeRj29_4test8run_test0B3_+0x4fc (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010cd9c)
+    #23 0x000100179504 in _RNCNvCs1uzm0ZeRj29_4test8run_tests_0B3_+0x43c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010d504)
+    #24 0x0001001eb8d4 in _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1b_+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10017f8d4)
+    #25 0x000100122b44 in _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00B14_+0x1ac (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b6b44)
+    #26 0x000100139d14 in _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2e_+0x130 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000cdd14)
+    #27 0x00010010cc34 in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2L_+0x1c8 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000a0c34)
+    #28 0x00010011e26c in __rust_try+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b226c)
+    #29 0x00010010bea8 in _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EEB2C_+0x170 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10009fea8)
+
+Thread T1 created by T0 here:
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x101526054"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1002bc70c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100120428"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000aee4c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000af124"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017df84"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10016ea50"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1000d67a4"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017a634"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10017b540"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006cbc8"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006e0d0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006e024"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006ded4"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100471d04"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003f800c"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100409428"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003f7540"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003d81b0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10032c418"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003f7e28"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100409428"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003f7250"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003d8104"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x1003449b0"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006de08"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x10006d298"
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x18c0c3dfc"
+    #0 0x000101526054 in pthread_create+0x58 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/aarch64-apple-darwin/lib/librustc-nightly_rt.asan.dylib:arm64+0x36054)
+    #1 0x0001002bc70c in _RNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB5_6Thread3new+0x6cc (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10025070c)
+    #2 0x000100120428 in _RINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB10_+0x844 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000b4428)
+    #3 0x0001000aee4c in _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1c_+0x2c0 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100042e4c)
+    #4 0x0001000af124 in _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder5spawnNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB11_+0x144 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100043124)
+    #5 0x00010017df84 in _RNvCs1uzm0ZeRj29_4test8run_test+0xea0 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100111f84)
+    #6 0x00010016ea50 in _RINvCs1uzm0ZeRj29_4test9run_testsNCNvNtB2_7console17run_tests_consoles0_0EB2_+0x2e2c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100102a50)
+    #7 0x0001000d67a4 in _RNvNtCs1uzm0ZeRj29_4test7console17run_tests_console+0x5d8 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10006a7a4)
+    #8 0x00010017a634 in _RNvCs1uzm0ZeRj29_4test15test_main_inner+0x4f4 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010e634)
+    #9 0x00010017b540 in _RNvCs1uzm0ZeRj29_4test18test_main_env_args+0x224 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10010f540)
+    #10 0x00010006cbc8 in _RNvCshGCstYZo9Ci_6probes4main+0x140 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100000bc8)
+    #11 0x00010006e0d0 in _RNvYFENtNtCs5La0mFxbGLy_3std7process8ExitCodeINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceCshGCstYZo9Ci_6probes+0x10 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1000020d0)
+    #12 0x00010006e024 in _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceFENtNtB6_7process8ExitCodeB19_ECshGCstYZo9Ci_6probes+0x14 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100002024)
+    #13 0x00010006ded4 in _RNCINvNtCs5La0mFxbGLy_3std2rt10lang_startNtNtB6_7process8ExitCodeE0CshGCstYZo9Ci_6probes+0x50 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100001ed4)
+    #14 0x000100471d04 in _RNvXs0_NtNtNtCs90xp8bjXqcz_4core3ops8function5implsRDINtB7_2FnuEp6OutputlNtNtBb_6marker4SyncNtNtNtBb_5panic11unwind_safe13RefUnwindSafeEL_INtB7_6FnOnceuE9call_onceCs5La0mFxbGLy_3std+0x60 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100405d04)
+    #15 0x0001003f800c in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callRDINtNtNtCs90xp8bjXqcz_4core3ops8function2FnuEp6OutputlNtNtB13_6marker4SyncNtNtNtB13_5panic11unwind_safe13RefUnwindSafeEL_lEB6_+0x80 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10038c00c)
+    #16 0x000100409428 in __rust_try+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10039d428)
+    #17 0x0001003f7540 in _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindlRDINtNtNtCs90xp8bjXqcz_4core3ops8function2FnuEp6OutputlNtNtBU_6marker4SyncNtNtNtBU_5panic11unwind_safe13RefUnwindSafeEL_EB4_+0x148 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10038b540)
+    #18 0x0001003d81b0 in _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindRDINtNtNtCs90xp8bjXqcz_4core3ops8function2FnuEp6OutputlNtNtBP_6marker4SyncNtNtNtBP_5panic11unwind_safe13RefUnwindSafeEL_lEB4_+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10036c1b0)
+    #19 0x00010032c418 in _RNCNvNtCs5La0mFxbGLy_3std2rt19lang_start_internal0B5_+0x24c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1002c0418)
+    #20 0x0001003f7e28 in _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callNCNvNtB6_2rt19lang_start_internal0iEB6_+0x1cc (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10038be28)
+    #21 0x000100409428 in __rust_try+0x1c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10039d428)
+    #22 0x0001003f7250 in _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindiNCNvNtB4_2rt19lang_start_internal0EB4_+0x174 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10038b250)
+    #23 0x0001003d8104 in _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindNCNvNtB4_2rt19lang_start_internal0iEB4_+0x138 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10036c104)
+    #24 0x0001003449b0 in _RNvNtCs5La0mFxbGLy_3std2rt19lang_start_internal+0x1a0 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x1002d89b0)
+    #25 0x00010006de08 in _RINvNtCs5La0mFxbGLy_3std2rt10lang_startNtNtB4_7process8ExitCodeECshGCstYZo9Ci_6probes+0x13c (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100001e08)
+    #26 0x00010006d298 in main+0x20 (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x100001298)
+    #27 0x00018c0c3dfc in start+0x1b4c (/usr/lib/dyld:arm64e+0x1fdfc)
+
+==71685==WARNING: Can't read from symbolizer at fd 3
+==71685==WARNING: atos failed to symbolize address "0x100078b3c"
+SUMMARY: AddressSanitizer: heap-use-after-free (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2:arm64+0x10000cb3c) in _RNvCsitKbp5eEZIx_10broken_app14use_after_free+0x204
+Shadow bytes around the buggy address:
+  0x602000000d80: fa fa fd fd fa fa fd fa fa fa fd fa fa fa 04 fa
+  0x602000000e00: fa fa 02 fa fa fa 04 fa fa fa fd fa fa fa fd fd
+  0x602000000e80: fa fa fd fa fa fa 04 fa fa fa 01 fa fa fa 02 fa
+  0x602000000f00: fa fa 01 fa fa fa 04 fa fa fa 01 fa fa fa 03 fa
+  0x602000000f80: fa fa 01 fa fa fa fd fa fa fa fa fa fa fa fa fa
+=>0x602000001000: fa fa[fd]fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000001080: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000001100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000001180: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000001200: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x602000001280: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==71685==ABORTING
+error: test failed, to rerun pass `--test probes`
+
+Caused by:
+  process didn't exit successfully: `/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-address/aarch64-apple-darwin/debug/build/broken-app/c991dbb63bd520f2/out/probes-c991dbb63bd520f2 owned_value_remains_alive --exact --test-threads=1` (signal: 6, SIGABRT: process abort signal)
+
+EXIT_STATUS=101

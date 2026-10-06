@@ -1,0 +1,86 @@
+UTC: 2026-10-06T17:34:58Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+Команда: cargo +nightly miri test --locked --test probes counter_is_synchronized_and_calls_are_independent -- --exact
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:60:15
+   |
+60 |     let val = *raw;
+   |               ^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+note: an unsafe function restricts its caller, but its body is safe by default
+  --> src/lib.rs:57:1
+   |
+57 | pub unsafe fn use_after_free() -> i32 {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+   = note: `#[warn(unsafe_op_in_unsafe_fn)]` (part of `#[warn(rust_2024_compatibility)]`) on by default
+
+warning[E0133]: call to unsafe function `std::boxed::Box::<T>::from_raw` is unsafe and requires unsafe block
+  --> src/lib.rs:61:10
+   |
+61 |     drop(Box::from_raw(raw));
+   |          ^^^^^^^^^^^^^^^^^^ call to unsafe function
+   |
+   = note: consult the function's documentation for information on how to avoid undefined behavior
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:62:11
+   |
+62 |     val + *raw
+   |           ^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+
+For more information about this error, try `rustc --explain E0133`.
+warning: `broken-app` (lib) generated 3 warnings (run `cargo fix --lib -p broken-app` to apply 1 suggestion)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.07s
+     Running tests/probes.rs (target/miri/aarch64-apple-darwin/debug/build/broken-app/23b9a440cdcf8b2d/out/probes-23b9a440cdcf8b2d)
+
+running 1 test
+test counter_is_synchronized_and_calls_are_independent ... error: Undefined Behavior: Data race detected between (1) non-atomic write on thread `unnamed-2` and (2) non-atomic read on thread `unnamed-3` at alloc43156
+  --> src/concurrency.rs:15:21
+   |
+15 |                     COUNTER += 1;
+   |                     ^^^^^^^^^^^^ (2) just happened here
+   |
+help: and (1) occurred earlier here
+  --> src/concurrency.rs:15:21
+   |
+15 |                     COUNTER += 1;
+   |                     ^^^^^^^^^^^^
+   = help: this indicates a bug in the program: it performed an invalid operation, and caused Undefined Behavior
+   = help: see https://doc.rust-lang.org/nightly/reference/behavior-considered-undefined.html for further information
+   = note: this is on thread `unnamed-3`
+note: the current function got called indirectly due to this code
+  --> src/concurrency.rs:12:22
+   |
+12 |           handles.push(thread::spawn(move || {
+   |  ______________________^
+13 | |             for _ in 0..iterations {
+14 | |                 unsafe {
+15 | |                     COUNTER += 1;
+...  |
+18 | |         }));
+   | |__________^
+
+note: some details are omitted, run with `MIRIFLAGS=-Zmiri-backtrace=full` for a verbose backtrace
+
+error: aborting due to 1 previous error
+
+error: test failed, to rerun pass `--test probes`
+
+Caused by:
+  process didn't exit successfully: `/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/cargo-miri runner /Users/a.baranov/RustProjects/broken-app/target/original/target/miri/aarch64-apple-darwin/debug/build/broken-app/23b9a440cdcf8b2d/out/probes-23b9a440cdcf8b2d counter_is_synchronized_and_calls_are_independent --exact` (exit status: 1)
+note: test exited abnormally; to see the full output pass --no-capture to the harness.
+
+EXIT_STATUS=1

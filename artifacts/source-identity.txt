@@ -1,0 +1,17 @@
+# UTC: 2026-10-06T16:59:29Z
+# Исходный broken-app (архив до изменений):
+3e94de88c29134cce8512e76a1985483ba3e2f90871443f606b300eb9992a42a  artifacts/original.tar.gz
+# Эталон: /Users/a.baranov/RustProjects/reference-app
+# Коммит эталона: отсутствует
+e091f5e8c71de8446be2cdbad8992f9d968ea7f4e535bb81f15a93a15038c336  ../reference-app/benches/baseline.rs
+d9dd18b34783da2f2a110c9b4bdf49dd6da7ecca1f07844e23ff42655679dd46  ../reference-app/benches/criterion.rs
+20fe4a1640939c16cca04357ea1b8ac2e16796bcaf7e8192bb9b4110f188fa71  ../reference-app/scripts/compare.sh
+5824744a5d2b9748f504164806c6c6383c2ffadb042866b5e95260f13a400f8a  ../reference-app/scripts/profile.sh
+852572d79182b9a564e403d985b1043056a5cb9e77e5eb6419983f290256848f  ../reference-app/src/algo.rs
+3dca699c43ab20b1a2cb96c48b0682b255b453a5acd93ac5a1eeea5ec08cf243  ../reference-app/src/bin/demo.rs
+27c4a46dea7c42512ff71dec6720758d00784a74a52ee783b08a5d00293dbea2  ../reference-app/src/concurrency.rs
+b627db9c3eab3ca440ea76c3a206cc200ff2977973ead0f6d349e83c7f8b1b43  ../reference-app/src/lib.rs
+9be067e24bb431f78d544a93d638e4ae101cbd564533c9b9cc714db12e800f7b  ../reference-app/tests/integration.rs
+2caa9f2c0b8888589c9c356551762097a2d67fd2b0c45fb95656c3465de9f885  ../reference-app/Cargo.toml
+fcc248edd182be3c468ab51e8365010907d354ab2ccbe06b574336df5f5d4ab0  ../reference-app/Cargo.lock
+44c92e3a70ad3307b7056871c2bdb096d8bfa9373f5bf06a79bb6324a20ff2fb  ../reference-app/.gitignore

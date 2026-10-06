@@ -1,0 +1,409 @@
+UTC: 2026-10-06T17:32:35Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+Команда: env CARGO_TARGET_DIR=/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-thread RUSTFLAGS=-Zsanitizer=thread\ -Cforce-frame-pointers=yes cargo +nightly test --locked -Zbuild-std --target aarch64-apple-darwin --test probes counter_is_synchronized_and_calls_are_independent -- --exact --test-threads=1
+   Compiling compiler_builtins v0.1.160 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/compiler-builtins/compiler-builtins)
+   Compiling core v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/core)
+   Compiling libc v0.2.189
+   Compiling object v0.39.1
+   Compiling std v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/std)
+   Compiling test v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/test)
+   Compiling proc-macro2 v1.0.103
+   Compiling quote v1.0.42
+   Compiling unicode-ident v1.0.22
+   Compiling crossbeam-utils v0.8.21
+   Compiling serde_core v1.0.228
+   Compiling zerocopy v0.8.31
+   Compiling autocfg v1.5.0
+   Compiling serde v1.0.228
+   Compiling libc v0.2.178
+   Compiling serde_json v1.0.145
+   Compiling num-traits v0.2.19
+   Compiling rayon-core v1.13.0
+   Compiling syn v2.0.111
+   Compiling zerocopy-derive v0.8.31
+   Compiling serde_derive v1.0.228
+   Compiling rustc-std-workspace-core v1.99.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-core)
+   Compiling alloc v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/alloc)
+   Compiling memchr v2.8.3
+   Compiling adler2 v2.0.1
+   Compiling rustc-demangle v0.1.28
+   Compiling cfg-if v1.0.4
+   Compiling rustc-literal-escaper v0.0.8
+   Compiling unwind v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/unwind)
+   Compiling rustc-std-workspace-alloc v1.99.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-alloc)
+   Compiling panic_abort v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/panic_abort)
+   Compiling panic_unwind v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/panic_unwind)
+   Compiling gimli v0.34.0
+   Compiling std_detect v0.1.5 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/std_detect)
+   Compiling miniz_oxide v0.9.1
+   Compiling hashbrown v0.17.1
+   Compiling addr2line v0.27.1
+   Compiling rustc-std-workspace-std v1.99.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/rustc-std-workspace-std)
+   Compiling proc_macro v0.0.0 (/Users/a.baranov/.rustup/toolchains/nightly-aarch64-apple-darwin/lib/rustlib/src/rust/library/proc_macro)
+   Compiling getopts v0.2.24
+   Compiling either v1.15.0
+   Compiling clap_lex v0.7.6
+   Compiling anstyle v1.0.13
+   Compiling ciborium-io v0.2.2
+   Compiling ryu v1.0.20
+   Compiling memchr v2.7.6
+   Compiling itoa v1.0.15
+   Compiling regex-syntax v0.8.8
+   Compiling plotters-backend v0.3.7
+   Compiling itertools v0.10.5
+   Compiling same-file v1.0.6
+   Compiling cast v0.3.0
+   Compiling clap_builder v4.5.53
+   Compiling plotters-svg v0.3.7
+   Compiling crossbeam-epoch v0.9.18
+   Compiling walkdir v2.5.0
+   Compiling anes v0.1.6
+   Compiling crossbeam-deque v0.8.6
+   Compiling broken-app v0.1.0 (/Users/a.baranov/RustProjects/broken-app/target/original)
+   Compiling plotters v0.3.7
+   Compiling is-terminal v0.4.17
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:60:15
+   |
+60 |     let val = *raw;
+   |               ^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+note: an unsafe function restricts its caller, but its body is safe by default
+  --> src/lib.rs:57:1
+   |
+57 | pub unsafe fn use_after_free() -> i32 {
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+   = note: `#[warn(unsafe_op_in_unsafe_fn)]` (part of `#[warn(rust_2024_compatibility)]`) on by default
+
+warning[E0133]: call to unsafe function `std::boxed::Box::<T>::from_raw` is unsafe and requires unsafe block
+  --> src/lib.rs:61:10
+   |
+61 |     drop(Box::from_raw(raw));
+   |          ^^^^^^^^^^^^^^^^^^ call to unsafe function
+   |
+   = note: consult the function's documentation for information on how to avoid undefined behavior
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+
+warning[E0133]: dereference of raw pointer is unsafe and requires unsafe block
+  --> src/lib.rs:62:11
+   |
+62 |     val + *raw
+   |           ^^^^ dereference of raw pointer
+   |
+   = note: raw pointers may be null, dangling or unaligned; they can violate aliasing rules and cause data races: all of these are undefined behavior
+   = note: for more information, see <https://doc.rust-lang.org/edition-guide/rust-2024/unsafe-op-in-unsafe-fn.html>
+
+   Compiling oorandom v11.1.5
+   Compiling once_cell v1.21.3
+   Compiling regex-automata v0.4.13
+   Compiling rayon v1.11.0
+For more information about this error, try `rustc --explain E0133`.
+warning: `broken-app` (lib) generated 3 warnings (run `cargo fix --lib -p broken-app` to apply 1 suggestion)
+   Compiling criterion-plot v0.5.0
+   Compiling clap v4.5.53
+   Compiling half v2.7.1
+   Compiling ciborium-ll v0.2.2
+   Compiling regex v1.12.2
+   Compiling ciborium v0.2.2
+   Compiling tinytemplate v1.2.1
+   Compiling criterion v0.5.1
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 15.32s
+     Running tests/probes.rs (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-thread/aarch64-apple-darwin/debug/build/broken-app/bcdc06d9c9d92c60/out/probes-bcdc06d9c9d92c60)
+
+running 1 test
+test counter_is_synchronized_and_calls_are_independent ... ==72054==WARNING: external symbolizer didn't start up correctly!
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x104f9f018"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x104325364"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x10433f308"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b91a4"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040ba734"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b6638"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bceb0"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bd464"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bd0c8"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bc97c"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040baa98"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b6e4c"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b7c08"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x104f9f018"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x104325364"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x10433f308"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b91a4"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040ba734"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b6638"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bceb0"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bd464"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bd0c8"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040bc97c"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040baa98"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b6e4c"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==72054==WARNING: atos failed to symbolize address "0x1040b7c6c"
+==72054==WARNING: Can't read from symbolizer at fd 3
+==================
+WARNING: ThreadSanitizer: data race (pid=72054)
+  Read of size 8 at 0x0001045c9098 by thread T3:
+    #0 _RNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0B5_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003c08)
+    #1 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002e4c)
+    #2 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00B16_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006a98)
+    #3 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2g_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10000897c)
+    #4 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2N_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000090c8)
+    #5 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x100009464)
+    #6 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EEB2E_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100008eb0)
+    #7 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002638)
+    #8 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006734)
+    #9 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB19_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000051a4)
+    #10 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #11 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+  Previous write of size 8 at 0x0001045c9098 by thread T2:
+    #0 _RNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0B5_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003c6c)
+    #1 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002e4c)
+    #2 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00B16_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006a98)
+    #3 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2g_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10000897c)
+    #4 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2N_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000090c8)
+    #5 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x100009464)
+    #6 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EEB2E_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100008eb0)
+    #7 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002638)
+    #8 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006734)
+    #9 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB19_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000051a4)
+    #10 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #11 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+  Location is global '_RNvNtCsitKbp5eEZIx_10broken_app11concurrency7COUNTER' at 0x0001045c9098 (probes-bcdc06d9c9d92c60+0x100515098)
+
+  Thread T3 (tid=8631304, running) created by thread T1 at:
+    #0 pthread_create <null> (librustc-nightly_rt.tsan.dylib:arm64+0x2f0a0)
+    #1 _RNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB5_6Thread3new <null> (probes-bcdc06d9c9d92c60:arm64+0x10026dfb8)
+    #2 _RINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000063b0)
+    #3 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003470)
+    #4 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB13_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003594)
+    #5 _RINvNtNtCs5La0mFxbGLy_3std6thread9functions5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEBR_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006f1c)
+    #6 _RNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment <null> (probes-bcdc06d9c9d92c60:arm64+0x10000a964)
+    #7 _RNvCshGCstYZo9Ci_6probess_49counter_is_synchronized_and_calls_are_independent <null> (probes-bcdc06d9c9d92c60:arm64+0x100000c54)
+    #8 _RNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001008)
+    #9 _RNvYNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceB6_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001730)
+    #10 _RNvYFEINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtB9_3ops8function6FnOnceuE9call_onceCs1uzm0ZeRj29_4test <null> (probes-bcdc06d9c9d92c60:arm64+0x10009f800)
+    #11 _RINvCs1uzm0ZeRj29_4test28___rust_begin_short_backtraceINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEFEBQ_EB2_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000dfd0c)
+    #12 _RNvMs2_NtCs1uzm0ZeRj29_4test5typesNtB5_12RunnableTest3run <null> (probes-bcdc06d9c9d92c60:arm64+0x1000b7ad8)
+    #13 _RNCNvCs1uzm0ZeRj29_4test19run_test_in_process0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e7ee4)
+    #14 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtNtB9_3ops8function6FnOnceuE9call_onceB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc70)
+    #15 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtB11_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1Z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060cb0)
+    #16 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #17 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtBP_5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EEB2P_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d148)
+    #18 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtBN_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dd44)
+    #19 _RNvCs1uzm0ZeRj29_4test19run_test_in_process <null> (probes-bcdc06d9c9d92c60:arm64+0x1000ea424)
+    #20 _RNCNvCs1uzm0ZeRj29_4test8run_test0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8afc)
+    #21 _RNCNvCs1uzm0ZeRj29_4test8run_tests_0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8ec4)
+    #22 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1b_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000f4da8)
+    #23 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033964)
+    #24 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc00)
+    #25 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060ba0)
+    #26 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #27 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EEB2C_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d2bc)
+    #28 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2x_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dcc4)
+    #29 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0B12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033574)
+    #30 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB17_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10009a538)
+    #31 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #32 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+  Thread T2 (tid=8631303, finished) created by thread T1 at:
+    #0 pthread_create <null> (librustc-nightly_rt.tsan.dylib:arm64+0x2f0a0)
+    #1 _RNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB5_6Thread3new <null> (probes-bcdc06d9c9d92c60:arm64+0x10026dfb8)
+    #2 _RINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000063b0)
+    #3 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003470)
+    #4 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB13_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003594)
+    #5 _RINvNtNtCs5La0mFxbGLy_3std6thread9functions5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEBR_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006f1c)
+    #6 _RNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment <null> (probes-bcdc06d9c9d92c60:arm64+0x10000a964)
+    #7 _RNvCshGCstYZo9Ci_6probess_49counter_is_synchronized_and_calls_are_independent <null> (probes-bcdc06d9c9d92c60:arm64+0x100000c54)
+    #8 _RNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001008)
+    #9 _RNvYNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceB6_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001730)
+    #10 _RNvYFEINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtB9_3ops8function6FnOnceuE9call_onceCs1uzm0ZeRj29_4test <null> (probes-bcdc06d9c9d92c60:arm64+0x10009f800)
+    #11 _RINvCs1uzm0ZeRj29_4test28___rust_begin_short_backtraceINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEFEBQ_EB2_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000dfd0c)
+    #12 _RNvMs2_NtCs1uzm0ZeRj29_4test5typesNtB5_12RunnableTest3run <null> (probes-bcdc06d9c9d92c60:arm64+0x1000b7ad8)
+    #13 _RNCNvCs1uzm0ZeRj29_4test19run_test_in_process0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e7ee4)
+    #14 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtNtB9_3ops8function6FnOnceuE9call_onceB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc70)
+    #15 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtB11_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1Z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060cb0)
+    #16 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #17 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtBP_5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EEB2P_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d148)
+    #18 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtBN_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dd44)
+    #19 _RNvCs1uzm0ZeRj29_4test19run_test_in_process <null> (probes-bcdc06d9c9d92c60:arm64+0x1000ea424)
+    #20 _RNCNvCs1uzm0ZeRj29_4test8run_test0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8afc)
+    #21 _RNCNvCs1uzm0ZeRj29_4test8run_tests_0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8ec4)
+    #22 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1b_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000f4da8)
+    #23 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033964)
+    #24 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc00)
+    #25 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060ba0)
+    #26 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #27 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EEB2C_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d2bc)
+    #28 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2x_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dcc4)
+    #29 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0B12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033574)
+    #30 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB17_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10009a538)
+    #31 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #32 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+SUMMARY: ThreadSanitizer: data race (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-thread/aarch64-apple-darwin/debug/build/broken-app/bcdc06d9c9d92c60/out/probes-bcdc06d9c9d92c60:arm64+0x100003c08) in _RNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0B5_+0xcc
+==================
+==================
+WARNING: ThreadSanitizer: data race (pid=72054)
+  Write of size 8 at 0x0001045c9098 by thread T5:
+    #0 _RNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0B5_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003c6c)
+    #1 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002e4c)
+    #2 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00B16_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006a98)
+    #3 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2g_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10000897c)
+    #4 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2N_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000090c8)
+    #5 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x100009464)
+    #6 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EEB2E_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100008eb0)
+    #7 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002638)
+    #8 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006734)
+    #9 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB19_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000051a4)
+    #10 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #11 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+  Previous write of size 8 at 0x0001045c9098 by thread T4:
+    #0 _RNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0B5_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003c6c)
+    #1 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002e4c)
+    #2 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00B16_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006a98)
+    #3 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2g_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10000897c)
+    #4 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2N_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000090c8)
+    #5 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x100009464)
+    #6 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EEB2E_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100008eb0)
+    #7 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_00EuEB2z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100002638)
+    #8 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006734)
+    #9 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB19_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000051a4)
+    #10 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #11 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+  Location is global '_RNvNtCsitKbp5eEZIx_10broken_app11concurrency7COUNTER' at 0x0001045c9098 (probes-bcdc06d9c9d92c60+0x100515098)
+
+  Thread T5 (tid=8631306, running) created by thread T1 at:
+    #0 pthread_create <null> (librustc-nightly_rt.tsan.dylib:arm64+0x2f0a0)
+    #1 _RNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB5_6Thread3new <null> (probes-bcdc06d9c9d92c60:arm64+0x10026dfb8)
+    #2 _RINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000063b0)
+    #3 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003470)
+    #4 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB13_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003594)
+    #5 _RINvNtNtCs5La0mFxbGLy_3std6thread9functions5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEBR_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006f1c)
+    #6 _RNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment <null> (probes-bcdc06d9c9d92c60:arm64+0x10000a964)
+    #7 _RNvCshGCstYZo9Ci_6probess_49counter_is_synchronized_and_calls_are_independent <null> (probes-bcdc06d9c9d92c60:arm64+0x100000c54)
+    #8 _RNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001008)
+    #9 _RNvYNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceB6_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001730)
+    #10 _RNvYFEINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtB9_3ops8function6FnOnceuE9call_onceCs1uzm0ZeRj29_4test <null> (probes-bcdc06d9c9d92c60:arm64+0x10009f800)
+    #11 _RINvCs1uzm0ZeRj29_4test28___rust_begin_short_backtraceINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEFEBQ_EB2_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000dfd0c)
+    #12 _RNvMs2_NtCs1uzm0ZeRj29_4test5typesNtB5_12RunnableTest3run <null> (probes-bcdc06d9c9d92c60:arm64+0x1000b7ad8)
+    #13 _RNCNvCs1uzm0ZeRj29_4test19run_test_in_process0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e7ee4)
+    #14 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtNtB9_3ops8function6FnOnceuE9call_onceB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc70)
+    #15 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtB11_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1Z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060cb0)
+    #16 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #17 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtBP_5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EEB2P_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d148)
+    #18 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtBN_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dd44)
+    #19 _RNvCs1uzm0ZeRj29_4test19run_test_in_process <null> (probes-bcdc06d9c9d92c60:arm64+0x1000ea424)
+    #20 _RNCNvCs1uzm0ZeRj29_4test8run_test0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8afc)
+    #21 _RNCNvCs1uzm0ZeRj29_4test8run_tests_0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8ec4)
+    #22 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1b_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000f4da8)
+    #23 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033964)
+    #24 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc00)
+    #25 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060ba0)
+    #26 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #27 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EEB2C_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d2bc)
+    #28 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2x_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dcc4)
+    #29 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0B12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033574)
+    #30 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB17_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10009a538)
+    #31 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #32 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+  Thread T4 (tid=8631305, finished) created by thread T1 at:
+    #0 pthread_create <null> (librustc-nightly_rt.tsan.dylib:arm64+0x2f0a0)
+    #1 _RNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB5_6Thread3new <null> (probes-bcdc06d9c9d92c60:arm64+0x10026dfb8)
+    #2 _RINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000063b0)
+    #3 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder15spawn_uncheckedNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB1e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003470)
+    #4 _RINvMNtNtCs5La0mFxbGLy_3std6thread7builderNtB3_7Builder5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEB13_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100003594)
+    #5 _RINvNtNtCs5La0mFxbGLy_3std6thread9functions5spawnNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0uEBR_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100006f1c)
+    #6 _RNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment <null> (probes-bcdc06d9c9d92c60:arm64+0x10000a964)
+    #7 _RNvCshGCstYZo9Ci_6probess_49counter_is_synchronized_and_calls_are_independent <null> (probes-bcdc06d9c9d92c60:arm64+0x100000c54)
+    #8 _RNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001008)
+    #9 _RNvYNCNvCshGCstYZo9Ci_6probes49counter_is_synchronized_and_calls_are_independent0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_onceB6_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100001730)
+    #10 _RNvYFEINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtB9_3ops8function6FnOnceuE9call_onceCs1uzm0ZeRj29_4test <null> (probes-bcdc06d9c9d92c60:arm64+0x10009f800)
+    #11 _RINvCs1uzm0ZeRj29_4test28___rust_begin_short_backtraceINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEFEBQ_EB2_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000dfd0c)
+    #12 _RNvMs2_NtCs1uzm0ZeRj29_4test5typesNtB5_12RunnableTest3run <null> (probes-bcdc06d9c9d92c60:arm64+0x1000b7ad8)
+    #13 _RNCNvCs1uzm0ZeRj29_4test19run_test_in_process0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e7ee4)
+    #14 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtNtB9_3ops8function6FnOnceuE9call_onceB1d_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc70)
+    #15 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtB11_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1Z_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060cb0)
+    #16 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #17 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwindINtNtCs90xp8bjXqcz_4core6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEINtNtNtBP_5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EEB2P_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d148)
+    #18 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNvCs1uzm0ZeRj29_4test19run_test_in_process0EINtNtBN_6result6ResultuNtNtCslaOPoLlewwo_5alloc6string6StringEEB1L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dd44)
+    #19 _RNvCs1uzm0ZeRj29_4test19run_test_in_process <null> (probes-bcdc06d9c9d92c60:arm64+0x1000ea424)
+    #20 _RNCNvCs1uzm0ZeRj29_4test8run_test0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8afc)
+    #21 _RNCNvCs1uzm0ZeRj29_4test8run_tests_0B3_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000e8ec4)
+    #22 _RINvNtNtCs5La0mFxbGLy_3std3sys9backtrace28___rust_begin_short_backtraceNCNvCs1uzm0ZeRj29_4test8run_tests_0uEB1b_ <null> (probes-bcdc06d9c9d92c60:arm64+0x1000f4da8)
+    #23 _RNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00B14_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033964)
+    #24 _RNvXsn_NtNtCs90xp8bjXqcz_4core5panic11unwind_safeINtB5_16AssertUnwindSafeNCNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EINtNtNtB9_3ops8function6FnOnceuE9call_onceB2e_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10007dc00)
+    #25 _RINvNvNtCs5La0mFxbGLy_3std9panicking12catch_unwind7do_callINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB6_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2L_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100060ba0)
+    #26 __rust_try <null> (probes-bcdc06d9c9d92c60:arm64+0x10006a6ec)
+    #27 _RINvNtCs5La0mFxbGLy_3std9panicking12catch_unwinduINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EEB2C_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10005d2bc)
+    #28 _RINvNtCs5La0mFxbGLy_3std5panic12catch_unwindINtNtNtCs90xp8bjXqcz_4core5panic11unwind_safe16AssertUnwindSafeNCNCINvNtNtB4_6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_00EuEB2x_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10003dcc4)
+    #29 _RNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0B12_ <null> (probes-bcdc06d9c9d92c60:arm64+0x100033574)
+    #30 _RNSNvYNCINvNtNtCs5La0mFxbGLy_3std6thread9lifecycle15spawn_uncheckedNCNvCs1uzm0ZeRj29_4test8run_tests_0uEs_0INtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuE9call_once6vtableB17_ <null> (probes-bcdc06d9c9d92c60:arm64+0x10009a538)
+    #31 _RNvXst_NtCslaOPoLlewwo_5alloc5boxedINtB5_3BoxDINtNtNtCs90xp8bjXqcz_4core3ops8function6FnOnceuEp6OutputuNtNtBP_6marker4SendEL_EIBJ_uE9call_onceCs5La0mFxbGLy_3std <null> (probes-bcdc06d9c9d92c60:arm64+0x10028b308)
+    #32 _RNvNvMs0_NtNtNtCs5La0mFxbGLy_3std3sys6thread4unixNtB7_6Thread3new12thread_start <null> (probes-bcdc06d9c9d92c60:arm64+0x100271364)
+
+SUMMARY: ThreadSanitizer: data race (/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-thread/aarch64-apple-darwin/debug/build/broken-app/bcdc06d9c9d92c60/out/probes-bcdc06d9c9d92c60:arm64+0x100003c6c) in _RNCNvNtCsitKbp5eEZIx_10broken_app11concurrency14race_increment0B5_+0x130
+==================
+FAILED
+
+failures:
+
+---- counter_is_synchronized_and_calls_are_independent stdout ----
+
+thread 'counter_is_synchronized_and_calls_are_independent' (8631302) panicked at tests/probes.rs:16:5:
+assertion `left == right` failed
+  left: 48
+ right: 64
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+
+failures:
+    counter_is_synchronized_and_calls_are_independent
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 2 filtered out; finished in 0.04s
+
+ThreadSanitizer: reported 2 warnings
+error: test failed, to rerun pass `--test probes`
+
+Caused by:
+  process didn't exit successfully: `/Users/a.baranov/RustProjects/broken-app/target/original-sanitizer-thread/aarch64-apple-darwin/debug/build/broken-app/bcdc06d9c9d92c60/out/probes-bcdc06d9c9d92c60 counter_is_synchronized_and_calls_are_independent --exact --test-threads=1` (signal: 6, SIGABRT: process abort signal)
+
+EXIT_STATUS=101

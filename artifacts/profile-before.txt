@@ -1,0 +1,320 @@
+Analysis of sampling profile (pid 71194) every 1 millisecond
+Process:         profile [71194]
+Path:            /Users/USER/*/profile
+Load Address:    0x10247c000
+Identifier:      profile
+Version:         ???
+Code Type:       ARM64
+Parent Process:  bash [71186]
+Target Type:     live task
+
+Date/Time:       2026-10-06 20:31:22.864 +0300
+Launch Time:     2026-10-06 20:31:22.829 +0300
+OS Version:      macOS 26.5.2 (25F84)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         3776K
+Physical footprint (peak):  3776K
+Idle exit:                  untracked
+----
+
+Call graph:
+    180 Thread_8626031: Main Thread
+    + 177 _dyld_start  (in dyld) + 0  [0x1027289c0]
+    + 2 start  (in dyld) + 6904  [0x18c0c3da8]
+    + ! 2 dyld4::start(dyld4::KernelArgs*, void*, void*, unsigned long long)::$_1::operator()() const  (in dyld) + 320  [0x18c0c444c]
+    + !   1 dyld4::prepare(dyld4::APIs&, mach_o::UnsafeHeader const*)  (in dyld) + 2108  [0x18c0c4ca4]
+    + !   : 1 dyld4::JustInTimeLoader::applyFixups(Diagnostics&, dyld4::RuntimeState&, dyld4::DyldCacheDataConstLazyScopedWriter&, bool, lsl::Vector<std::pair<dyld4::Loader const*, char const*>>*) const  (in dyld) + 616  [0x18c0e3c64]
+    + !   :   1 dyld4::Loader::forEachBindTarget(Diagnostics&, dyld4::RuntimeState&, void (unsigned int, unsigned int, dyld4::Loader::ResolvedSymbol const&) block_pointer, bool, void (dyld4::Loader::ResolvedSymbol const&, bool&) block_pointer, void (dyld4::Loader::ResolvedSymbol const&, bool&) block_pointer) const  (in dyld) + 108  [0x18c0ec298]
+    + !   :     1 dyld3::MachOAnalyzer::withVMLayout(Diagnostics&, void (mach_o::Layout const&) block_pointer) const  (in dyld) + 672  [0x18c0f883c]
+    + !   :       1 invocation function for block in dyld4::Loader::forEachBindTarget(Diagnostics&, dyld4::RuntimeState&, void (unsigned int, unsigned int, dyld4::Loader::ResolvedSymbol const&) block_pointer, bool, void (dyld4::Loader::ResolvedSymbol const&, bool&) block_pointer, void (dyld4::Loader::ResolvedSymbol const&, bool&) block_pointer) const  (in dyld) + 280  [0x18c0ec3bc]
+    + !   :         1 mach_o::Fixups::forEachBindTarget_Opcodes(Diagnostics&, bool, void (mach_o::Fixups::BindTargetInfo const&, bool&) block_pointer, void (mach_o::Fixups::BindTargetInfo const&, bool&) block_pointer) const  (in dyld) + 208  [0x18c104bb4]
+    + !   :           1 mach_o::Fixups::forEachBindUnified_Opcodes(Diagnostics&, bool, void (unsigned long long, unsigned int, mach_o::Fixups::BindTargetInfo const&, bool&) block_pointer, void (unsigned long long, unsigned int, mach_o::Fixups::BindTargetInfo const&, bool&) block_pointer) const  (in dyld) + 244  [0x18c1051fc]
+    + !   :             1 mach_o::Fixups::forEachBind_OpcodesLazy(Diagnostics&, void (char const*, bool, bool, unsigned int, int, unsigned int, unsigned int, unsigned long long, unsigned char, char const*, bool, bool, unsigned long long, bool, bool&) block_pointer) const  (in dyld) + 444  [0x18c105a70]
+    + !   :               1 invocation function for block in mach_o::Fixups::forEachBindTarget_Opcodes(Diagnostics&, bool, void (mach_o::Fixups::BindTargetInfo const&, bool&) block_pointer, void (mach_o::Fixups::BindTargetInfo const&, bool&) block_pointer) const  (in dyld) + 72  [0x18c106160]
+    + !   :                 1 invocation function for block in dyld4::Loader::forEachBindTarget(Diagnostics&, dyld4::RuntimeState&, void (unsigned int, unsigned int, dyld4::Loader::ResolvedSymbol const&) block_pointer, bool, void (dyld4::Loader::ResolvedSymbol const&, bool&) block_pointer, void (dyld4::Loader::ResolvedSymbol const&, bool&) block_pointer) const  (in dyld) + 96  [0x18c0ec448]
+    + !   :                   1 dyld4::Loader::resolveSymbol(Diagnostics&, dyld4::RuntimeState&, int, char const*, bool, bool, void (unsigned int, unsigned int, dyld4::Loader::ResolvedSymbol const&) block_pointer, bool) const  (in dyld) + 544  [0x18c0ec6d0]
+    + !   :                     1 dyld4::Loader::hasExportedSymbol(Diagnostics&, dyld4::RuntimeState&, char const*, dyld4::Loader::ExportedSymbolMode, dyld4::Loader::ResolverMode, dyld4::Loader::ResolvedSymbol*, dyld3::Array<dyld4::Loader const*>*) const  (in dyld) + 1340  [0x18c0eda28]
+    + !   :                       1 dyld4::Loader::hasExportedSymbol(Diagnostics&, dyld4::RuntimeState&, char const*, dyld4::Loader::ExportedSymbolMode, dyld4::Loader::ResolverMode, dyld4::Loader::ResolvedSymbol*, dyld3::Array<dyld4::Loader const*>*) const  (in dyld) + 124  [0x18c0ed568]
+    + !   1 dyld4::prepare(dyld4::APIs&, mach_o::UnsafeHeader const*)  (in dyld) + 3692  [0x18c0c52d4]
+    + !     1 dyld4::RuntimeState::notifyDebuggerLoad(std::span<dyld4::Loader const*, 18446744073709551615ul> const&)  (in dyld) + 528  [0x18c0d443c]
+    + !       1 dyld4::ExternallyViewableState::addImages(lsl::Allocator&, lsl::Allocator&, std::span<dyld4::ExternallyViewableState::ImageInfo, 18446744073709551615ul> const&)  (in dyld) + 1084  [0x18c0de3bc]
+    + !         1 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 296  [0x18c0ddc60]
+    + !           1 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x18c11a6f4]
+    + !             1 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x18c11a368]
+    + !               1 mach_msg_overwrite  (in dyld) + 244  [0x18c133a40]
+    + !                 1 mach_msg2_internal  (in dyld) + 76  [0x18c133898]
+    + !                   1 mach_msg2_trap  (in dyld) + 8  [0x18c0a572c]
+    + 1 start  (in dyld) + 6008  [0x102743a28]
+    +   1 dyld4::ExternallyViewableState::createMinimalInfo(lsl::Allocator&, unsigned long long, char const*, unsigned long long, char const*, DyldSharedCache const*)  (in dyld) + 2116  [0x10275d390]
+    +     1 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 296  [0x10275dc60]
+    +       1 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x10279a6f4]
+    +         1 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x10279a368]
+    +           1 mach_msg_overwrite  (in dyld) + 244  [0x1027b3a40]
+    +             1 mach_msg2_internal  (in dyld) + 76  [0x1027b3898]
+    +               1 mach_msg2_trap  (in dyld) + 8  [0x10272572c]
+    2312 Thread_8626031   DispatchQueue_1: com.apple.main-thread  (serial)
+      2286 start  (in dyld) + 6992  [0x18c0c3e00]
+      ! 2286 main  (in profile) + 52  [0x10247dab8]
+      !   2286 _RNvNtCsaLOjE9VYtxK_3std2rt19lang_start_internal  (in profile) + 952  [0x102499728]
+      !     2286 std::rt::lang_start::_$u7b$$u7b$closure$u7d$$u7d$::hd64ca4f09b5036dc  (in profile) + 16  [0x10247dad4]
+      !       2286 std::sys::backtrace::__rust_begin_short_backtrace::hf4bb82b952a007b6  (in profile) + 12  [0x10247daec]  backtrace.rs:166
+      !         2081 profile::main::he3d8e9679601bd36  (in profile) + 1380  [0x10247d104]  profile.rs:25
+      !         : 1638 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | 1299 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + 939 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + ! 601 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + ! : 329 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + ! : | 139 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + ! : | + 68 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,1148,...  [0x10247f2f4,0x10247f26c,...]
+      !         : | + ! : | + 50 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + ! : | + ! 18 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1132,1284,...  [0x10247f25c,0x10247f2f4,...]
+      !         : | + ! : | + ! 16 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + ! : | + ! : 9 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1116,1284,...  [0x10247f24c,0x10247f2f4,...]
+      !         : | + ! : | + ! : 3 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !         : | + ! : | + ! : | 2 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 36,560  [0x10247ee14,0x10247f020]
+      !         : | + ! : | + ! : | 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508  [0x10247ea5c]
+      !         : | + ! : | + ! : 3 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,16  [0x10247ea5c,0x10247e870]
+      !         : | + ! : | + ! : 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : | + ! : | + ! :   1 _platform_memmove  (in libsystem_platform.dylib) + 180  [0x18c48b414]
+      !         : | + ! : | + ! 11 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,452,...  [0x10247ea5c,0x10247ea24,...]
+      !         : | + ! : | + ! 5 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : | + ! : | + !   3 _platform_memmove  (in libsystem_platform.dylib) + 24,36,...  [0x18c48b378,0x18c48b384,...]
+      !         : | + ! : | + !   2 DYLD-STUB$$memcpy  (in profile) + 4  [0x1024b67e8]
+      !         : | + ! : | + 15 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,612,...  [0x10247ea5c,0x10247eac4,...]
+      !         : | + ! : | + 6 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : | + ! : | +   6 _platform_memmove  (in libsystem_platform.dylib) + 180,0,...  [0x18c48b414,0x18c48b360,...]
+      !         : | + ! : | 95 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,1028,...  [0x10247f2f4,0x10247f1f4,...]
+      !         : | + ! : | 79 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,452,...  [0x10247ea5c,0x10247ea24,...]
+      !         : | + ! : | 16 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : | + ! : |   13 _platform_memmove  (in libsystem_platform.dylib) + 180,24,...  [0x18c48b414,0x18c48b378,...]
+      !         : | + ! : |   3 DYLD-STUB$$memcpy  (in profile) + 4  [0x1024b67e8]
+      !         : | + ! : 146 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,1148,...  [0x10247f2f4,0x10247f26c,...]
+      !         : | + ! : 102 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,524,...  [0x10247ea5c,0x10247ea6c,...]
+      !         : | + ! : 17 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : | + ! : | 15 _platform_memmove  (in libsystem_platform.dylib) + 180,204,...  [0x18c48b414,0x18c48b42c,...]
+      !         : | + ! : | 2 DYLD-STUB$$memcpy  (in profile) + 4  [0x1024b67e8]
+      !         : | + ! : 6 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !         : | + ! : | 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 68  [0x10247e724]
+      !         : | + ! : | + 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      !         : | + ! : | 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 116  [0x10247e754]
+      !         : | + ! : | + 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 20  [0x10247e6f4]
+      !         : | + ! : | 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 188,196  [0x10247e79c,0x10247e7a4]
+      !         : | + ! : 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | + ! 177 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,512,...  [0x10247ea5c,0x10247ea60,...]
+      !         : | + ! 135 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,1148,...  [0x10247f2f4,0x10247f26c,...]
+      !         : | + ! 17 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : | + ! : 15 _platform_memmove  (in libsystem_platform.dylib) + 180,36,...  [0x18c48b414,0x18c48b384,...]
+      !         : | + ! : 2 DYLD-STUB$$memcpy  (in profile) + 4  [0x1024b67e8]
+      !         : | + ! 8 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !         : | + ! : 5 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | + ! : 3 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : | + ! :   3 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12,20,...  [0x10247e6ec,0x10247e6f4,...]
+      !         : | + ! 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | + 244 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,512,...  [0x10247ea5c,0x10247ea60,...]
+      !         : | + 87 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,952,...  [0x10247f2f4,0x10247f1a8,...]
+      !         : | + 15 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !         : | + ! 6 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | + ! 4 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 68  [0x10247e724]
+      !         : | + ! : 4 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12,196  [0x10247e6ec,0x10247e7a4]
+      !         : | + ! 3 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : | + ! : 3 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12,192,...  [0x10247e6ec,0x10247e7a0,...]
+      !         : | + ! 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 116  [0x10247e754]
+      !         : | + !   2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 20  [0x10247e6f4]
+      !         : | + 11 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : | + ! 10 _platform_memmove  (in libsystem_platform.dylib) + 36,180,...  [0x18c48b384,0x18c48b414,...]
+      !         : | + ! 1 DYLD-STUB$$memcpy  (in profile) + 4  [0x1024b67e8]
+      !         : | + 3 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | 284 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,524,...  [0x10247ea5c,0x10247ea6c,...]
+      !         : | 41 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,1148,...  [0x10247f2f4,0x10247f26c,...]
+      !         : | 12 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !         : | + 5 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 68  [0x10247e724]
+      !         : | + ! 4 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12,0,...  [0x10247e6ec,0x10247e6e0,...]
+      !         : | + ! 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : | + !   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      !         : | + 4 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : | + ! 3 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 188,192,...  [0x10247e79c,0x10247e7a0,...]
+      !         : | + ! 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : | + !   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      !         : | + 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 116  [0x10247e754]
+      !         : | + ! 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : | + ! : 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 16  [0x10247e6f0]
+      !         : | + ! 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | + 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         : |   1 _platform_memmove  (in libsystem_platform.dylib) + 180  [0x18c48b414]
+      !         : 252 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,512,...  [0x10247ea5c,0x10247ea60,...]
+      !         : 102 core::slice::sort::unstable::ipnsort::h317e06deae9792ca  (in profile) + 116,128,...  [0x10247fa3c,0x10247fa48,...]
+      !         : 75 profile::main::he3d8e9679601bd36  (in profile) + 1132,1180,...  [0x10247d00c,0x10247d03c,...]  profile.rs:25
+      !         : 7 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 12,136,...  [0x10247edfc,0x10247ee78,...]
+      !         : 6 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !         : | 4 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x10247e7a4]
+      !         : | 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 68  [0x10247e724]
+      !         : | + 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : | 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+      !         : |   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      !         : 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+      !         :   1 _platform_memmove  (in libsystem_platform.dylib) + 180  [0x18c48b414]
+      !         194 profile::main::he3d8e9679601bd36  (in profile) + 1496  [0x10247d178]  profile.rs:30
+      !         : 194 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :   194 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :     194 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :       194 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         193 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         | 193 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |   193 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     188 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + 182 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! 166 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : 156 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | 143 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + 129 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! 105 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : 87 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | 67 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + 48 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! 28 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : 16 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : | 12 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : | + 7 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : | + ! 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 32  [0x10247da58]  before.rs:0
+      !         :         |     + ! : | + ! : | + ! : | + ! 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : | + ! : 1 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 36  [0x10247da5c]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : | + ! : 1 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + ! : | + ! : | + ! : | + ! 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : | + ! 1 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4  [0x10247da3c]  before.rs:21
+      !         :         |     + ! : | + ! : | + ! : | + 3 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 0,4  [0x10247da38,0x10247da3c]  before.rs:21
+      !         :         |     + ! : | + ! : | + ! : | + 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 36,44  [0x10247da5c,0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : | 4 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4  [0x10247da3c]  before.rs:21
+      !         :         |     + ! : | + ! : | + ! : 5 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4,0  [0x10247da3c,0x10247da38]  before.rs:21
+      !         :         |     + ! : | + ! : | + ! : 5 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44,36  [0x10247da64,0x10247da5c]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! : 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + ! : | + ! : | + ! 11 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4,0  [0x10247da3c,0x10247da38]  before.rs:21
+      !         :         |     + ! : | + ! : | + ! 6 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 60,68  [0x10247da74,0x10247da7c]  before.rs:27
+      !         :         |     + ! : | + ! : | + ! 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | + ! 1 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 32  [0x10247da58]  before.rs:0
+      !         :         |     + ! : | + ! : | + 8 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44,36  [0x10247da64,0x10247da5c]  before.rs:25
+      !         :         |     + ! : | + ! : | + 6 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4,0  [0x10247da3c,0x10247da38]  before.rs:21
+      !         :         |     + ! : | + ! : | + 5 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + ! : | + ! : | 7 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4  [0x10247da3c]  before.rs:21
+      !         :         |     + ! : | + ! : | 5 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + ! : | 5 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68,60  [0x10247da7c,0x10247da74]  before.rs:27
+      !         :         |     + ! : | + ! : | 3 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 32  [0x10247da58]  before.rs:0
+      !         :         |     + ! : | + ! : 10 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + ! : | + ! : 5 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4  [0x10247da3c]  before.rs:21
+      !         :         |     + ! : | + ! : 3 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44,36  [0x10247da64,0x10247da5c]  before.rs:25
+      !         :         |     + ! : | + ! 10 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4,0  [0x10247da3c,0x10247da38]  before.rs:21
+      !         :         |     + ! : | + ! 7 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44,36  [0x10247da64,0x10247da5c]  before.rs:25
+      !         :         |     + ! : | + ! 6 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68,60  [0x10247da7c,0x10247da74]  before.rs:27
+      !         :         |     + ! : | + ! 1 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 32  [0x10247da58]  before.rs:0
+      !         :         |     + ! : | + 6 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4  [0x10247da3c]  before.rs:21
+      !         :         |     + ! : | + 4 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | + 4 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + ! : | 5 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4,0  [0x10247da3c,0x10247da38]  before.rs:21
+      !         :         |     + ! : | 4 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! : | 4 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + ! : 4 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4,0  [0x10247da3c,0x10247da38]  before.rs:21
+      !         :         |     + ! : 4 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + ! : 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! 6 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4,0  [0x10247da3c,0x10247da38]  before.rs:21
+      !         :         |     + ! 6 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+      !         :         |     + ! 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 32  [0x10247da58]  before.rs:0
+      !         :         |     + ! 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     + 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4  [0x10247da3c]  before.rs:21
+      !         :         |     + 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 36,44  [0x10247da5c,0x10247da64]  before.rs:25
+      !         :         |     + 2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         :         |     2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 36,44  [0x10247da5c,0x10247da64]  before.rs:25
+      !         :         |     2 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 60,68  [0x10247da74,0x10247da7c]  before.rs:27
+      !         :         |     1 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 4  [0x10247da3c]  before.rs:21
+      !         :         1 profile::before::slow_fib::hb93357df86899ed8  (in profile) + 68  [0x10247da7c]  before.rs:27
+      !         9 profile::main::he3d8e9679601bd36  (in profile) + 1856  [0x10247d2e0]  profile.rs:40
+      !         : 8 profile::main::he3d8e9679601bd36  (in profile) + 2088,2228,...  [0x10247d3c8,0x10247d454,...]  profile.rs:40
+      !         : 1 _platform_memmove  (in libsystem_platform.dylib) + 88  [0x18c48b3b8]
+      !         1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 72  [0x10247e8a8]
+      !         1 profile::main::he3d8e9679601bd36  (in profile) + 2604  [0x10247d5cc]  profile.rs:45
+      !           1 _$LT$T$u20$as$u20$alloc..string..SpecExtendStr$GT$::spec_extend_into::h2e69a3d7561f037b  (in profile) + 240  [0x10247ca44]  string.rs:2525
+      11 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      ! 10 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 12,4  [0x10247edfc,0x10247edf4]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 16  [0x10247e870]
+      1 ???  (in <unknown binary>)  [0x10be]
+      ! 1 ???  (in <unknown binary>)  [0x7bac05950]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !     1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      1 ???  (in <unknown binary>)  [0x10cd]
+      ! 1 ???  (in <unknown binary>)  [0x7bb009140]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !     1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 8  [0x10247e868]
+      1 ???  (in <unknown binary>)  [0x1131]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !   1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 12  [0x10247edfc]
+      1 ???  (in <unknown binary>)  [0x113c]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      1 ???  (in <unknown binary>)  [0x1141]
+      ! 1 ???  (in <unknown binary>)  [0x7bac05898]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !     1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 0  [0x10247e6e0]
+      1 ???  (in <unknown binary>)  [0x12d1]
+      ! 1 ???  (in <unknown binary>)  [0x7bac062a8]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !     1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 8  [0x10247e868]
+      1 ???  (in <unknown binary>)  [0x130e]
+      ! 1 ???  (in <unknown binary>)  [0x7bac06838]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !     1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      1 ???  (in <unknown binary>)  [0x7bac010e0]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 16  [0x10247e870]
+      1 ???  (in <unknown binary>)  [0x7bac01328]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 4  [0x10247e864]
+      1 ???  (in <unknown binary>)  [0x7bac01b90]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 0  [0x10247e6e0]
+      1 ???  (in <unknown binary>)  [0x7bac027d8]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 8  [0x10247e868]
+      1 ???  (in <unknown binary>)  [0x7bac029e8]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 8  [0x10247e868]
+      1 ???  (in <unknown binary>)  [0x7bb009710]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+      !   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+      1 ???  (in <unknown binary>)  [0x7bb5803b8]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 8  [0x10247e868]
+      1 ???  (in <unknown binary>)  [0x7bb581a50]
+        1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+          1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 12  [0x10247e6ec]
+
+Total number in stack (recursive counted multiple, when >=5):
+        30       core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 0  [0x10247e6e0]
+        22       profile::before::slow_fib::hb93357df86899ed8  (in profile) + 44  [0x10247da64]  before.rs:25
+        19       core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 0  [0x10247e860]
+        18       core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x10247eb08]
+        15       profile::before::slow_fib::hb93357df86899ed8  (in profile) + 0  [0x10247da38]  before.rs:21
+        15       profile::before::slow_fib::hb93357df86899ed8  (in profile) + 0  [0x10247da38]  before.rs:25
+        14       profile::before::slow_fib::hb93357df86899ed8  (in profile) + 0  [0x10247da38]  before.rs:27
+        12       core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 0  [0x10247edf0]
+        12       core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x10247e9f4]
+        10       _platform_memmove  (in libsystem_platform.dylib) + 0  [0x18c48b360]
+        9       core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x10247f340]
+        7       core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x10247e73c]
+        5       DYLD-STUB$$memcpy  (in profile) + 0  [0x1024b67e4]
+        5       profile::before::slow_fib::hb93357df86899ed8  (in profile) + 0  [0x10247da38]  before.rs:0
+
+Sort by top of stack, same collapsed (when >= 5):
+        core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile)        1177
+        core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile)        619
+        profile::before::slow_fib::hb93357df86899ed8  (in profile)        194
+        _dyld_start  (in dyld)        177
+        core::slice::sort::unstable::ipnsort::h317e06deae9792ca  (in profile)        102
+        profile::main::he3d8e9679601bd36  (in profile)        83
+        _platform_memmove  (in libsystem_platform.dylib)        66
+        core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile)        60
+        DYLD-STUB$$memcpy  (in profile)        10
+
+Binary images description not available
+

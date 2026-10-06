@@ -1,0 +1,68 @@
+UTC: 2026-10-06T17:02:55Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+Команда: lldb --batch -o breakpoint\ set\ --name\ broken_app::average_positive -o run\ averages_only_positive\ --exact\ --nocapture -o frame\ variable -o thread\ step-out -o register\ read\ d0 -o continue target/debug/deps/integration-4da037677f6bd96c
+(lldb) target create "target/debug/deps/integration-4da037677f6bd96c"
+Current executable set to '/Users/a.baranov/RustProjects/broken-app/target/debug/deps/integration-4da037677f6bd96c' (arm64).
+(lldb) breakpoint set --name broken_app::average_positive
+Breakpoint 1: where = integration-4da037677f6bd96c`broken_app::average_positive::hfac18e1b06fab564 + 32 at lib.rs:48:27, address = 0x000000010003b6f8
+(lldb) run averages_only_positive --exact --nocapture
+
+running 1 test
+Process 66667 launched: '/Users/a.baranov/RustProjects/broken-app/target/debug/deps/integration-4da037677f6bd96c' (arm64)
+Process 66667 stopped
+* thread #2, name = 'averages_only_positive', stop reason = breakpoint 1.1
+    frame #0: 0x000000010003b6f8 integration-4da037677f6bd96c`broken_app::average_positive::hfac18e1b06fab564(values=&[i64] @ 0x0000000170006608) at lib.rs:48:27
+   45  	/// Логическая ошибка: усредняет по всем элементам, хотя требуется учитывать
+   46  	/// только положительные. Деление на длину среза даёт неверный результат.
+   47  	pub fn average_positive(values: &[i64]) -> f64 {
+-> 48  	    let sum: i64 = values.iter().sum();
+    	                          ^
+   49  	    if values.is_empty() {
+   50  	        return 0.0;
+   51  	    }
+Target 0: (integration-4da037677f6bd96c) stopped.
+(lldb) frame variable
+(&[i64]) values = {
+  data_ptr = 0x0000000170006638
+  length = 3
+}
+(lldb) thread step-out
+Process 66667 stopped
+* thread #2, name = 'averages_only_positive', stop reason = step out
+Return value: (double) $0 = 5
+
+    frame #0: 0x0000000100001a8c integration-4da037677f6bd96c`integration::averages_only_positive::h3d78979fa1890e42 at integration.rs:36:13
+   33  	fn averages_only_positive() {
+   34  	    let nums = [-5, 5, 15];
+   35  	    // Ожидается (5 + 15) / 2 = 10, но текущая реализация делит на все элементы.
+-> 36  	    assert!((broken_app::average_positive(&nums) - 10.0).abs() < f64::EPSILON);
+    	            ^
+   37  	}
+Target 0: (integration-4da037677f6bd96c) stopped.
+(lldb) register read d0
+      d0 = 5
+(lldb) continue
+
+thread 'averages_only_positive' (8584602) panicked at tests/integration.rs:36:5:
+assertion failed: (broken_app::average_positive(&nums) - 10.0).abs() < f64::EPSILON
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test averages_only_positive ... FAILED
+
+failures:
+
+failures:
+    averages_only_positive
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.09s
+
+Process 66667 resuming
+Process 66667 exited with status = 101 (0x00000065)
+
+EXIT_STATUS=0

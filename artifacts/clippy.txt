@@ -1,0 +1,25 @@
+UTC: 2026-10-06T17:41:37Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+stable-aarch64-apple-darwin (active, default)
+nightly-aarch64-apple-darwin
+Команда: cargo clippy --locked --workspace --all-targets -- -D warnings
+warning: unused import: `std::sync::Arc`
+ --> tests/fixtures/reference-app/src/concurrency.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `reference-app` (lib) generated 1 warning (run `cargo clippy --fix --lib -p reference-app -- -D warnings` to apply 1 suggestion)
+    Checking broken-app v0.1.0 (/Users/a.baranov/RustProjects/broken-app)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.33s
+
+EXIT_STATUS=0

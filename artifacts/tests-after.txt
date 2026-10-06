@@ -1,0 +1,128 @@
+UTC: 2026-10-06T17:38:29Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+stable-aarch64-apple-darwin (active, default)
+nightly-aarch64-apple-darwin
+Команда: cargo test --locked --workspace --all-targets
+warning: unused import: `std::sync::Arc`
+ --> tests/fixtures/reference-app/src/concurrency.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `reference-app` (lib) generated 1 warning (run `cargo fix --lib -p reference-app` to apply 1 suggestion)
+   Compiling broken-app v0.1.0 (/Users/a.baranov/RustProjects/broken-app)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.26s
+     Running unittests src/lib.rs (target/debug/deps/broken_app-e27e928568245c43)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/bin/demo.rs (target/debug/deps/demo-d77c76c28b451e12)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/baseline.rs (target/debug/deps/baseline-7b8e9ba177a1af7e)
+
+running 1 test
+test safe_baseline_matches_fixed_behavior ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/integration.rs (target/debug/deps/integration-b13b081e741425b9)
+
+running 6 tests
+test averages_only_positive ... ok
+test counts_non_zero_bytes ... ok
+test fib_small_numbers ... ok
+test dedup_preserves_uniques ... ok
+test normalize_simple ... ok
+test sums_even_numbers ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/reference.rs (target/debug/deps/reference-4252789f0734a074)
+
+running 1 test
+test matches_reference_on_deterministic_inputs ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/regression.rs (target/debug/deps/regression-f85bc77861e5f36e)
+
+running 10 tests
+test buffer_is_released ... ok
+test dedup_edge_cases ... ok
+test empty_and_last_even_element ... ok
+test fib_edges ... ok
+test owned_value_remains_alive ... ok
+test fib_overflow_is_explicit - should panic ... ok
+test positive_mean_edge_cases ... ok
+test whitespace_and_unicode ... ok
+test sum_overflow_is_explicit - should panic ... ok
+test counter_is_synchronized_and_calls_are_independent ... ok
+
+test result: ok. 10 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running benches/baseline.rs (target/debug/deps/baseline-2d5ba4e82befca8b)
+version=after; median of 9 samples, 10 calls/sample; ns/call
+sum_even/50000,418533
+fib/32,183
+dedup/10000,2778741
+count/1000000,5643537
+normalize/53248,1990525
+average/50000,700387
+     Running benches/criterion.rs (target/debug/deps/criterion-d3ae6d3ab4e9c556)
+Gnuplot not found, using plotters backend
+Testing comparison/dedup_before/100
+Success
+Testing comparison/dedup_after/100
+Success
+Testing comparison/dedup_before/10000
+Success
+Testing comparison/dedup_after/10000
+Success
+Testing comparison/fib_before/20
+Success
+Testing comparison/fib_after/20
+Success
+Testing comparison/fib_before/32
+Success
+Testing comparison/fib_after/32
+Success
+Testing comparison/count_before/1000000
+Success
+Testing comparison/count_after/1000000
+Success
+Testing comparison/normalize_before/53248
+Success
+Testing comparison/normalize_after/53248
+Success
+Testing comparison/average_before/50000
+Success
+Testing comparison/average_after/50000
+Success
+Testing comparison/sum_before/50000
+Success
+Testing comparison/sum_after/50000
+Success
+
+     Running unittests examples/profile.rs (target/debug/examples/profile-64508585b9088288)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+
+EXIT_STATUS=0

@@ -1,0 +1,182 @@
+UTC: 2026-10-06T17:35:15Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+Команда: cargo bench --locked --bench criterion -- --noplot
+warning: unused import: `std::sync::Arc`
+ --> tests/fixtures/reference-app/src/concurrency.rs:2:5
+  |
+2 | use std::sync::Arc;
+  |     ^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `reference-app` (lib) generated 1 warning (run `cargo fix --lib -p reference-app` to apply 1 suggestion)
+    Finished `bench` profile [optimized + debuginfo] target(s) in 0.07s
+     Running benches/criterion.rs (target/release/deps/criterion-4b27a0a64ad58170)
+Gnuplot not found, using plotters backend
+Benchmarking comparison/dedup_before/100
+Benchmarking comparison/dedup_before/100: Warming up for 200.00 ms
+Benchmarking comparison/dedup_before/100: Collecting 20 samples in estimated 1.0002 s (315k iterations)
+Benchmarking comparison/dedup_before/100: Analyzing
+comparison/dedup_before/100
+                        time:   [2.9996 µs 3.0005 µs 3.0020 µs]
+                        change: [-2.9627% -1.4457% -0.0814%] (p = 0.07 > 0.05)
+                        No change in performance detected.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high severe
+Benchmarking comparison/dedup_after/100
+Benchmarking comparison/dedup_after/100: Warming up for 200.00 ms
+Benchmarking comparison/dedup_after/100: Collecting 20 samples in estimated 1.0000 s (2.8M iterations)
+Benchmarking comparison/dedup_after/100: Analyzing
+comparison/dedup_after/100
+                        time:   [360.01 ns 362.16 ns 365.62 ns]
+                        change: [-4.9430% -3.0818% -1.3675%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 3 outliers among 20 measurements (15.00%)
+  1 (5.00%) high mild
+  2 (10.00%) high severe
+Benchmarking comparison/dedup_before/10000
+Benchmarking comparison/dedup_before/10000: Warming up for 200.00 ms
+
+Warning: Unable to complete 20 samples in 1.0s. You may wish to increase target time to 1.3s, or reduce sample count to 10.
+Benchmarking comparison/dedup_before/10000: Collecting 20 samples in estimated 1.2843 s (20 iterations)
+Benchmarking comparison/dedup_before/10000: Analyzing
+comparison/dedup_before/10000
+                        time:   [63.978 ms 64.013 ms 64.048 ms]
+                        change: [-5.9511% -4.2717% -2.5796%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 2 outliers among 20 measurements (10.00%)
+  1 (5.00%) low mild
+  1 (5.00%) high mild
+Benchmarking comparison/dedup_after/10000
+Benchmarking comparison/dedup_after/10000: Warming up for 200.00 ms
+Benchmarking comparison/dedup_after/10000: Collecting 20 samples in estimated 1.0009 s (15k iterations)
+Benchmarking comparison/dedup_after/10000: Analyzing
+comparison/dedup_after/10000
+                        time:   [65.161 µs 65.215 µs 65.285 µs]
+                        change: [-3.3350% -1.5788% -0.0210%] (p = 0.08 > 0.05)
+                        No change in performance detected.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high mild
+Benchmarking comparison/fib_before/20
+Benchmarking comparison/fib_before/20: Warming up for 200.00 ms
+Benchmarking comparison/fib_before/20: Collecting 20 samples in estimated 1.0012 s (56k iterations)
+Benchmarking comparison/fib_before/20: Analyzing
+comparison/fib_before/20
+                        time:   [17.863 µs 17.894 µs 17.934 µs]
+                        change: [-2.3657% -1.4679% -0.5523%] (p = 0.00 < 0.05)
+                        Change within noise threshold.
+Benchmarking comparison/fib_after/20
+Benchmarking comparison/fib_after/20: Warming up for 200.00 ms
+Benchmarking comparison/fib_after/20: Collecting 20 samples in estimated 1.0000 s (128M iterations)
+Benchmarking comparison/fib_after/20: Analyzing
+comparison/fib_after/20 time:   [7.8165 ns 7.8526 ns 7.8996 ns]
+                        change: [-1.1201% -0.4323% +0.3091%] (p = 0.26 > 0.05)
+                        No change in performance detected.
+Found 3 outliers among 20 measurements (15.00%)
+  3 (15.00%) high mild
+Benchmarking comparison/fib_before/32
+Benchmarking comparison/fib_before/32: Warming up for 200.00 ms
+
+Warning: Unable to complete 20 samples in 1.0s. You may wish to increase target time to 1.2s, enable flat sampling, or reduce sample count to 10.
+Benchmarking comparison/fib_before/32: Collecting 20 samples in estimated 1.2019 s (210 iterations)
+Benchmarking comparison/fib_before/32: Analyzing
+comparison/fib_before/32
+                        time:   [5.6935 ms 5.7014 ms 5.7080 ms]
+                        change: [-4.3971% -3.6476% -2.8593%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 2 outliers among 20 measurements (10.00%)
+  2 (10.00%) low mild
+Benchmarking comparison/fib_after/32
+Benchmarking comparison/fib_after/32: Warming up for 200.00 ms
+Benchmarking comparison/fib_after/32: Collecting 20 samples in estimated 1.0000 s (71M iterations)
+Benchmarking comparison/fib_after/32: Analyzing
+comparison/fib_after/32 time:   [14.062 ns 14.072 ns 14.082 ns]
+                        change: [-0.9187% -0.1720% +0.6183%] (p = 0.67 > 0.05)
+                        No change in performance detected.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high severe
+Benchmarking comparison/count_before/1000000
+Benchmarking comparison/count_before/1000000: Warming up for 200.00 ms
+Benchmarking comparison/count_before/1000000: Collecting 20 samples in estimated 1.0216 s (6930 iterations)
+Benchmarking comparison/count_before/1000000: Analyzing
+comparison/count_before/1000000
+                        time:   [147.37 µs 147.45 µs 147.53 µs]
+                        change: [-54.468% -39.400% -23.196%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Benchmarking comparison/count_after/1000000
+Benchmarking comparison/count_after/1000000: Warming up for 200.00 ms
+Benchmarking comparison/count_after/1000000: Collecting 20 samples in estimated 1.0267 s (7770 iterations)
+Benchmarking comparison/count_after/1000000: Analyzing
+comparison/count_after/1000000
+                        time:   [131.83 µs 131.96 µs 132.08 µs]
+                        change: [-47.616% -42.695% -37.096%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Benchmarking comparison/normalize_before/53248
+Benchmarking comparison/normalize_before/53248: Warming up for 200.00 ms
+Benchmarking comparison/normalize_before/53248: Collecting 20 samples in estimated 1.0084 s (13k iterations)
+Benchmarking comparison/normalize_before/53248: Analyzing
+comparison/normalize_before/53248
+                        time:   [76.296 µs 76.751 µs 77.279 µs]
+                        change: [-21.002% -15.841% -10.301%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 2 outliers among 20 measurements (10.00%)
+  1 (5.00%) high mild
+  1 (5.00%) high severe
+Benchmarking comparison/normalize_after/53248
+Benchmarking comparison/normalize_after/53248: Warming up for 200.00 ms
+Benchmarking comparison/normalize_after/53248: Collecting 20 samples in estimated 1.0063 s (13k iterations)
+Benchmarking comparison/normalize_after/53248: Analyzing
+comparison/normalize_after/53248
+                        time:   [78.011 µs 78.334 µs 78.613 µs]
+                        change: [-13.657% -6.1575% +0.6900%] (p = 0.14 > 0.05)
+                        No change in performance detected.
+Found 2 outliers among 20 measurements (10.00%)
+  1 (5.00%) low severe
+  1 (5.00%) high mild
+Benchmarking comparison/average_before/50000
+Benchmarking comparison/average_before/50000: Warming up for 200.00 ms
+Benchmarking comparison/average_before/50000: Collecting 20 samples in estimated 1.0033 s (15k iterations)
+Benchmarking comparison/average_before/50000: Analyzing
+comparison/average_before/50000
+                        time:   [67.723 µs 68.362 µs 68.892 µs]
+                        change: [-74.625% -69.183% -61.841%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Benchmarking comparison/average_after/50000
+Benchmarking comparison/average_after/50000: Warming up for 200.00 ms
+Benchmarking comparison/average_after/50000: Collecting 20 samples in estimated 1.0094 s (15k iterations)
+Benchmarking comparison/average_after/50000: Analyzing
+comparison/average_after/50000
+                        time:   [67.463 µs 67.543 µs 67.626 µs]
+                        change: [-64.755% -56.938% -46.359%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 1 outliers among 20 measurements (5.00%)
+  1 (5.00%) high mild
+Benchmarking comparison/sum_before/50000
+Benchmarking comparison/sum_before/50000: Warming up for 200.00 ms
+Benchmarking comparison/sum_before/50000: Collecting 20 samples in estimated 1.0009 s (148k iterations)
+Benchmarking comparison/sum_before/50000: Analyzing
+comparison/sum_before/50000
+                        time:   [6.7637 µs 6.7682 µs 6.7740 µs]
+                        change: [-64.332% -53.162% -36.193%] (p = 0.00 < 0.05)
+                        Performance has improved.
+Found 3 outliers among 20 measurements (15.00%)
+  2 (10.00%) high mild
+  1 (5.00%) high severe
+Benchmarking comparison/sum_after/50000
+Benchmarking comparison/sum_after/50000: Warming up for 200.00 ms
+Benchmarking comparison/sum_after/50000: Collecting 20 samples in estimated 1.0030 s (37k iterations)
+Benchmarking comparison/sum_after/50000: Analyzing
+comparison/sum_after/50000
+                        time:   [27.056 µs 27.082 µs 27.115 µs]
+                        change: [-2.4093% -1.9820% -1.5465%] (p = 0.00 < 0.05)
+                        Performance has improved.
+
+
+EXIT_STATUS=0

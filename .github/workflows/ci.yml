@@ -1,0 +1,51 @@
+name: Rust CI
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: rustup toolchain install 1.96.0 --profile minimal --component rustfmt --component clippy
+      - run: rustup default 1.96.0
+      # Эталонная фикстура неизменна и не форматируется вместе с нашим кодом.
+      - run: cargo fmt --package broken-app -- --check
+      - run: cargo clippy --locked --workspace --all-targets -- -D warnings
+
+  test:
+    name: Tests
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: rustup toolchain install 1.96.0 --profile minimal
+      - run: rustup default 1.96.0
+      - run: cargo build --locked --workspace
+      - run: cargo test --locked --workspace --all-targets
+      - run: cargo bench --locked --bench criterion -- --test
+      - run: cargo run --locked --bin demo
+
+  dynamic-analysis:
+    name: Dynamic Analysis
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - run: rustup toolchain install 1.96.0 --profile minimal
+      - run: rustup default 1.96.0
+      - run: rustup toolchain install nightly --profile minimal --component miri --component rust-src
+      - run: sudo apt-get update && sudo apt-get install -y valgrind
+      - run: bash scripts/record.sh artifacts/miri-ci.txt cargo +nightly miri test --locked -- --test-threads=1
+      - run: bash scripts/valgrind.sh
+      - run: bash scripts/sanitizers.sh address
+      - run: bash scripts/sanitizers.sh thread
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dynamic-analysis
+          path: artifacts/

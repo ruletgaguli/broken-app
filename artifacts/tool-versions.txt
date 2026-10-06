@@ -1,0 +1,21 @@
+UTC: 2026-10-06T17:36:44Z
+Darwin NB1500 25.5.0 Darwin Kernel Version 25.5.0: Tue Jun  9 22:28:29 PDT 2026; root:xnu-12377.121.10~1/RELEASE_ARM64_T6030 arm64
+rustc 1.96.0 (ac68faa20 2026-05-25)
+binary: rustc
+commit-hash: ac68faa20c58cbccd01ee7208bf3b6e93a7d7f96
+commit-date: 2026-05-25
+host: aarch64-apple-darwin
+release: 1.96.0
+LLVM version: 22.1.2
+stable-aarch64-apple-darwin (active, default)
+nightly-aarch64-apple-darwin
+Команда: rustc +nightly -Vv
+rustc 1.101.0-nightly (ea137335b 2026-10-05)
+binary: rustc
+commit-hash: ea137335b78829b4514bf1b4c16302f74fab8581
+commit-date: 2026-10-05
+host: aarch64-apple-darwin
+release: 1.101.0-nightly
+LLVM version: 23.1.3
+
+EXIT_STATUS=0

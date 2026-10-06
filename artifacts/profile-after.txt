@@ -1,0 +1,219 @@
+Analysis of sampling profile (pid 72147) every 1 millisecond
+Process:         profile [72147]
+Path:            /Users/USER/*/profile
+Load Address:    0x100bf8000
+Identifier:      profile
+Version:         ???
+Code Type:       ARM64
+Parent Process:  bash [72140]
+Target Type:     live task
+
+Date/Time:       2026-10-06 20:33:40.333 +0300
+Launch Time:     2026-10-06 20:33:40.303 +0300
+OS Version:      macOS 26.5.2 (25F84)
+Report Version:  7
+Analysis Tool:   /usr/bin/sample
+
+Physical footprint:         2976K
+Physical footprint (peak):  2976K
+Idle exit:                  untracked
+----
+
+Call graph:
+    268 Thread_8632413: Main Thread
+    + 263 _dyld_start  (in dyld) + 0  [0x100d3c9c0]
+    + 3 start  (in dyld) + 6904  [0x18c0c3da8]
+    + ! 2 dyld4::start(dyld4::KernelArgs*, void*, void*, unsigned long long)::$_1::operator()() const  (in dyld) + 320  [0x18c0c444c]
+    + ! : 2 dyld4::prepare(dyld4::APIs&, mach_o::UnsafeHeader const*)  (in dyld) + 3692  [0x18c0c52d4]
+    + ! :   2 dyld4::RuntimeState::notifyDebuggerLoad(std::span<dyld4::Loader const*, 18446744073709551615ul> const&)  (in dyld) + 528  [0x18c0d443c]
+    + ! :     2 dyld4::ExternallyViewableState::addImages(lsl::Allocator&, lsl::Allocator&, std::span<dyld4::ExternallyViewableState::ImageInfo, 18446744073709551615ul> const&)  (in dyld) + 1084  [0x18c0de3bc]
+    + ! :       2 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 296  [0x18c0ddc60]
+    + ! :         2 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x18c11a6f4]
+    + ! :           2 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x18c11a368]
+    + ! :             2 mach_msg_overwrite  (in dyld) + 244  [0x18c133a40]
+    + ! :               2 mach_msg2_internal  (in dyld) + 76  [0x18c133898]
+    + ! :                 2 mach_msg2_trap  (in dyld) + 8  [0x18c0a572c]
+    + ! 1 dyld4::start(dyld4::KernelArgs*, void*, void*, unsigned long long)::$_1::operator()() const  (in dyld) + 80  [0x18c0c435c]
+    + !   1 dyld4::ProcessConfig::ProcessConfig(dyld4::KernelArgs const*, dyld4::SyscallDelegate&, lsl::Allocator&)  (in dyld) + 60  [0x18c0c694c]
+    + !     1 dyld4::ProcessConfig::Process::Process(dyld4::KernelArgs const*, dyld4::SyscallDelegate&, lsl::Allocator&)  (in dyld) + 224  [0x18c0c7c00]
+    + !       1 dyld4::ProcessConfig::Process::getMainPath(dyld4::SyscallDelegate&, lsl::Allocator&)  (in dyld) + 84  [0x18c0c81ec]
+    + !         1 dyld4::SyscallDelegate::fsgetpath(char*, unsigned long, unsigned long long, unsigned long long) const  (in dyld) + 44  [0x18c0c227c]
+    + !           1 fsgetpath  (in dyld) + 8  [0x18c0aa5b8]
+    + 1 start  (in dyld) + 4700  [0x100d5750c]
+    + ! 1 dyld4::ExternallyViewableState::createMinimalInfo(lsl::Allocator&, unsigned long long, char const*, unsigned long long, char const*, DyldSharedCache const*)  (in dyld) + 2116  [0x100d71390]
+    + !   1 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 296  [0x100d71c60]
+    + !     1 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x100dae6f4]
+    + !       1 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x100dae368]
+    + !         1 mach_msg_overwrite  (in dyld) + 244  [0x100dc7a40]
+    + !           1 mach_msg2_internal  (in dyld) + 76  [0x100dc7898]
+    + !             1 mach_msg2_trap  (in dyld) + 8  [0x100d3972c]
+    + 1 start  (in dyld) + 6008  [0x100d57a28]
+    +   1 dyld4::ExternallyViewableState::createMinimalInfo(lsl::Allocator&, unsigned long long, char const*, unsigned long long, char const*, DyldSharedCache const*)  (in dyld) + 2116  [0x100d71390]
+    +     1 dyld4::ExternallyViewableState::triggerNotifications(dyld_image_mode, unsigned int, dyld_image_info const*)  (in dyld) + 296  [0x100d71c60]
+    +       1 dyld4::RemoteNotificationResponder::blockOnSynchronousEvent(unsigned int)  (in dyld) + 48  [0x100dae6f4]
+    +         1 dyld4::RemoteNotificationResponder::sendMessage(int, unsigned int, mach_msg_header_t*)  (in dyld) + 244  [0x100dae368]
+    +           1 mach_msg_overwrite  (in dyld) + 244  [0x100dc7a40]
+    +             1 mach_msg2_internal  (in dyld) + 76  [0x100dc7898]
+    +               1 mach_msg2_trap  (in dyld) + 8  [0x100d3972c]
+    2227 Thread_8632413   DispatchQueue_1: com.apple.main-thread  (serial)
+      2220 start  (in dyld) + 6992  [0x18c0c3e00]
+      ! 2220 main  (in profile) + 52  [0x100bf9ab8]
+      !   2220 _RNvNtCsaLOjE9VYtxK_3std2rt19lang_start_internal  (in profile) + 952  [0x100c15728]
+      !     2220 std::rt::lang_start::_$u7b$$u7b$closure$u7d$$u7d$::hd64ca4f09b5036dc  (in profile) + 16  [0x100bf9ad4]
+      !       2220 std::sys::backtrace::__rust_begin_short_backtrace::hf4bb82b952a007b6  (in profile) + 12  [0x100bf9aec]  backtrace.rs:166
+      !         789 profile::main::he3d8e9679601bd36  (in profile) + 1588  [0x100bf91d4]  profile.rs:42
+      !         : 789 broken_app::leak_buffer::heca5d36ccaf3e8f8  (in profile) + 396,368,...  [0x100bfb4e8,0x100bfb4cc,...]
+      !         463 profile::main::he3d8e9679601bd36  (in profile) + 1612  [0x100bf91ec]  profile.rs:47
+      !         : 449 broken_app::normalize::h25b3ccf14a92adbe  (in profile) + 60  [0x100bfb77c]
+      !         : | 304 _$LT$alloc..string..String$u20$as$u20$core..iter..traits..collect..FromIterator$LT$$RF$str$GT$$GT$::from_iter::h787ae777692db447  (in profile) + 276,132,...  [0x100bfac94,0x100bfac04,...]
+      !         : | 132 _$LT$alloc..string..String$u20$as$u20$core..iter..traits..collect..FromIterator$LT$$RF$str$GT$$GT$::from_iter::h787ae777692db447  (in profile) + 488  [0x100bfad68]
+      !         : | + 119 _platform_memmove  (in libsystem_platform.dylib) + 452,0,...  [0x18c48b524,0x18c48b360,...]
+      !         : | + 13 DYLD-STUB$$memcpy  (in profile) + 4,0  [0x100c327e8,0x100c327e4]
+      !         : | 13 _$LT$alloc..string..String$u20$as$u20$core..iter..traits..collect..FromIterator$LT$$RF$str$GT$$GT$::from_iter::h787ae777692db447  (in profile) + 532  [0x100bfad94]
+      !         : |   13 alloc::raw_vec::RawVecInner$LT$A$GT$::reserve::do_reserve_and_handle::h88a997df59bf166f  (in profile) + 108  [0x100c2e1bc]
+      !         : |     13 alloc::raw_vec::RawVecInner$LT$A$GT$::finish_grow::he7e613f918bbfe21  (in profile) + 92  [0x100c2e0f8]
+      !         : |       11 _realloc  (in libsystem_malloc.dylib) + 452  [0x18c2aee90]
+      !         : |       ! 11 _malloc_zone_realloc  (in libsystem_malloc.dylib) + 148  [0x18c2ae674]
+      !         : |       !   8 xzm_realloc  (in libsystem_malloc.dylib) + 852  [0x18c29ee48]
+      !         : |       !   : 8 _platform_memmove  (in libsystem_platform.dylib) + 88,100,...  [0x18c48b3b8,0x18c48b3c4,...]
+      !         : |       !   3 xzm_realloc  (in libsystem_malloc.dylib) + 876  [0x18c29ee60]
+      !         : |       !     1 _xzm_free  (in libsystem_malloc.dylib) + 352  [0x18c29f1cc]
+      !         : |       !     | 1 DYLD-STUB$$_platform_bzero  (in libsystem_malloc.dylib) + 8  [0x18c2b67f4]
+      !         : |       !     1 _xzm_free  (in libsystem_malloc.dylib) + 1048  [0x18c29f484]
+      !         : |       !     | 1 mach_absolute_time  (in libsystem_kernel.dylib) + 108  [0x18c43e10c]
+      !         : |       !     1 _xzm_xzone_free_freelist  (in libsystem_malloc.dylib) + 760  [0x18c2a7dd0]
+      !         : |       !       1 mach_absolute_time  (in libsystem_kernel.dylib) + 112  [0x18c43e110]
+      !         : |       2 _realloc  (in libsystem_malloc.dylib) + 252  [0x18c2aedc8]
+      !         : |         2 xzm_malloc_zone_size  (in libsystem_malloc.dylib) + 0,484  [0x18c2a94a4,0x18c2a9688]
+      !         : 14 broken_app::normalize::h25b3ccf14a92adbe  (in profile) + 248,236,...  [0x100bfb838,0x100bfb82c,...]
+      !         399 profile::main::he3d8e9679601bd36  (in profile) + 1400  [0x100bf9118]  profile.rs:27
+      !         : 352 broken_app::algo::slow_dedup::h28efe8fa1bb07da5  (in profile) + 268  [0x100bfa5f4]
+      !         : | 302 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + 269 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! 212 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! : 160 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! : | 97 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! : | + 45 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! : | + ! 18 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 456,1132,...  [0x100bfafb8,0x100bfb25c,...]
+      !         : | + ! : | + ! 17 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! : | + ! : 14 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,1132,...  [0x100bfb2f4,0x100bfb25c,...]
+      !         : | + ! : | + ! : 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x100bfb340]
+      !         : | + ! : | + ! : | 1 _platform_memmove  (in libsystem_platform.dylib) + 180  [0x18c48b414]
+      !         : | + ! : | + ! : 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! : | + ! : | 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1132  [0x100bfb25c]
+      !         : | + ! : | + ! : 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !         : | + ! : | + ! 9 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,252  [0x100bfaa5c,0x100bfa95c]
+      !         : | + ! : | + ! 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x100bfb340]
+      !         : | + ! : | + !   1 _platform_memmove  (in libsystem_platform.dylib) + 180  [0x18c48b414]
+      !         : | + ! : | + 31 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,524,...  [0x100bfaa5c,0x100bfaa6c,...]
+      !         : | + ! : | + 19 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,1132,...  [0x100bfb2f4,0x100bfb25c,...]
+      !         : | + ! : | + 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x100bfb340]
+      !         : | + ! : | + ! 1 DYLD-STUB$$memcpy  (in profile) + 4  [0x100c327e8]
+      !         : | + ! : | + 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x100bfa9f4]
+      !         : | + ! : | +   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x100bfa7a4]
+      !         : | + ! : | 39 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,516,...  [0x100bfaa5c,0x100bfaa64,...]
+      !         : | + ! : | 19 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1284,848,...  [0x100bfb2f4,0x100bfb140,...]
+      !         : | + ! : | 3 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x100bfa9f4]
+      !         : | + ! : | + 2 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x100bfa7a4]
+      !         : | + ! : | + 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 68  [0x100bfa724]
+      !         : | + ! : | +   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 4  [0x100bfa6e4]
+      !         : | + ! : | 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x100bfa7a4]
+      !         : | + ! : | 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x100bfb340]
+      !         : | + ! : |   1 _platform_memmove  (in libsystem_platform.dylib) + 12  [0x18c48b36c]
+      !         : | + ! : 35 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,524  [0x100bfaa5c,0x100bfaa6c]
+      !         : | + ! : 15 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1148,1284,...  [0x100bfb26c,0x100bfb2f4,...]
+      !         : | + ! : 1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x100bfb340]
+      !         : | + ! : | 1 _platform_memmove  (in libsystem_platform.dylib) + 180  [0x18c48b414]
+      !         : | + ! : 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x100bfa9f4]
+      !         : | + ! :   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 192  [0x100bfa7a0]
+      !         : | + ! 51 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,500,...  [0x100bfaa5c,0x100bfaa54,...]
+      !         : | + ! 4 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x100bfa9f4]
+      !         : | + ! : 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 68  [0x100bfa724]
+      !         : | + ! : | 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 124  [0x100bfa75c]
+      !         : | + ! : 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 92  [0x100bfa73c]
+      !         : | + ! : | 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 196  [0x100bfa7a4]
+      !         : | + ! : 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 116  [0x100bfa754]
+      !         : | + ! : | 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 116  [0x100bfa754]
+      !         : | + ! : 1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 188  [0x100bfa79c]
+      !         : | + ! 2 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 884,896  [0x100bfb164,0x100bfb170]
+      !         : | + 31 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,512,...  [0x100bfaa5c,0x100bfaa60,...]
+      !         : | + 2 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 812,1132  [0x100bfb11c,0x100bfb25c]
+      !         : | 49 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 508,468,...  [0x100bfaa5c,0x100bfaa34,...]
+      !         : | 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x100bfa9f4]
+      !         : |   1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 68  [0x100bfa724]
+      !         : |     1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 116  [0x100bfa754]
+      !         : |       1 core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 188  [0x100bfa79c]
+      !         : 35 broken_app::algo::slow_dedup::h28efe8fa1bb07da5  (in profile) + 328,80,...  [0x100bfa630,0x100bfa538,...]
+      !         : 10 broken_app::algo::slow_dedup::h28efe8fa1bb07da5  (in profile) + 80  [0x100bfa538]
+      !         : | 10 _platform_memmove  (in libsystem_platform.dylib) + 88,100  [0x18c48b3b8,0x18c48b3c4]
+      !         : 2 profile::main::he3d8e9679601bd36  (in profile) + 1452  [0x100bf914c]  profile.rs:28
+      !         394 profile::main::he3d8e9679601bd36  (in profile) + 2784  [0x100bf9680]  profile.rs:52
+      !         : 394 broken_app::average_positive::h8276ea6ced4b9f19  (in profile) + 160,136,...  [0x100bfb69c,0x100bfb684,...]
+      !         173 profile::main::he3d8e9679601bd36  (in profile) + 1572  [0x100bf91c4]  profile.rs:37
+      !         : 173 broken_app::sum_even::hc8db608ab3bdb035  (in profile) + 28,44,...  [0x100bfb710,0x100bfb720,...]
+      !         1 profile::main::he3d8e9679601bd36  (in profile) + 1476  [0x100bf9164]  profile.rs:28
+      !         : 1 xzm_segment_group_free_chunk  (in libsystem_malloc.dylib) + 636  [0x18c28838c]
+      !         :   1 _xzm_segment_group_segment_span_free_coalesce  (in libsystem_malloc.dylib) + 256  [0x18c28899c]
+      !         :     1 _xzm_segment_group_span_mark_used  (in libsystem_malloc.dylib) + 148  [0x18c28a364]
+      !         :       1 _xzm_reclaim_mark_used  (in libsystem_malloc.dylib) + 124  [0x18c286f7c]
+      !         :         1 _xzm_reclaim_mark_used_locked  (in libsystem_malloc.dylib) + 60  [0x18c289a50]
+      !         :           1 mach_vm_reclaim_try_cancel  (in libsystem_kernel.dylib) + 260  [0x18c4512c8]
+      !         :             1 mach_absolute_time  (in libsystem_kernel.dylib) + 108  [0x18c43e10c]
+      !         1 profile::main::he3d8e9679601bd36  (in profile) + 2704  [0x100bf9630]  profile.rs:48
+      !           1 xzm_segment_group_free_chunk  (in libsystem_malloc.dylib) + 636  [0x18c28838c]
+      !             1 _xzm_segment_group_segment_span_free_coalesce  (in libsystem_malloc.dylib) + 256  [0x18c28899c]
+      !               1 _xzm_segment_group_span_mark_used  (in libsystem_malloc.dylib) + 148  [0x18c28a364]
+      !                 1 _xzm_reclaim_mark_used  (in libsystem_malloc.dylib) + 124  [0x18c286f7c]
+      !                   1 _xzm_reclaim_mark_used_locked  (in libsystem_malloc.dylib) + 60  [0x18c289a50]
+      !                     1 mach_vm_reclaim_try_cancel  (in libsystem_kernel.dylib) + 260  [0x18c4512c8]
+      !                       1 mach_absolute_time  (in libsystem_kernel.dylib) + 16  [0x18c43e0b0]
+      2 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      ! 2 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 12  [0x100bfadfc]
+      1 ???  (in <unknown binary>)  [0x1299]
+      ! 1 ???  (in <unknown binary>)  [0x829592af8]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !     1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 8  [0x100bfa868]
+      1 ???  (in <unknown binary>)  [0x130a]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !   1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 8  [0x100bfadf8]
+      1 ???  (in <unknown binary>)  [0x829580a38]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !   1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 8  [0x100bfa868]
+      1 _main_thread  (in dyld) + 224  [0x1f8689e60]
+      ! 1 core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+      !   1 core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 12  [0x100bfadfc]
+      1 start  (in dyld) + 6904  [0x18c0c3da8]
+        1 dyld4::start(dyld4::KernelArgs*, void*, void*, unsigned long long)::$_1::operator()() const  (in dyld) + 320  [0x18c0c444c]
+          1 dyld4::prepare(dyld4::APIs&, mach_o::UnsafeHeader const*)  (in dyld) + 3880  [0x18c0c5390]
+            1 dyld4::APIs::runAllInitializersForMain()  (in dyld) + 116  [0x18c0b8860]
+              1 dyld4::ExternallyViewableState::setLibSystemInitialized()  (in dyld) + 28  [0x18c0ddf68]
+                1 dyld4::ExternallyViewableState::setDyldState(unsigned char)  (in dyld) + 156  [0x18c0dbe90]
+                  1 dyld4::ExternallyViewableState::generateAtlas(lsl::Allocator&)  (in dyld) + 896  [0x18c0dc36c]
+                    1 PropertyList::encode(ByteStream&)  (in dyld) + 1676  [0x18c111e0c]
+                      1 PropertyList::Dictionary::emit(unsigned char, ByteStream&)  (in dyld) + 316  [0x18c111144]
+
+Total number in stack (recursive counted multiple, when >=5):
+        13       core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 680  [0x100bfab08]
+        11       core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 0  [0x100bfadf0]
+        10       core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile) + 0  [0x100bfa6e0]
+        10       core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 0  [0x100bfa860]
+        7       _platform_memmove  (in libsystem_platform.dylib) + 0  [0x18c48b360]
+        5       core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile) + 1360  [0x100bfb340]
+        5       core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile) + 404  [0x100bfa9f4]
+
+Sort by top of stack, same collapsed (when >= 5):
+        broken_app::leak_buffer::heca5d36ccaf3e8f8  (in profile)        789
+        broken_app::average_positive::h8276ea6ced4b9f19  (in profile)        394
+        _$LT$alloc..string..String$u20$as$u20$core..iter..traits..collect..FromIterator$LT$$RF$str$GT$$GT$::from_iter::h787ae777692db447  (in profile)        304
+        _dyld_start  (in dyld)        263
+        core::slice::sort::unstable::quicksort::quicksort::hc7fb137016f5fcaa  (in profile)        248
+        broken_app::sum_even::hc8db608ab3bdb035  (in profile)        173
+        _platform_memmove  (in libsystem_platform.dylib)        141
+        core::slice::sort::shared::smallsort::small_sort_network::h152b605db56557cf  (in profile)        94
+        broken_app::algo::slow_dedup::h28efe8fa1bb07da5  (in profile)        35
+        DYLD-STUB$$memcpy  (in profile)        14
+        broken_app::normalize::h25b3ccf14a92adbe  (in profile)        14
+        core::slice::sort::shared::pivot::median3_rec::h50b3b8da3e765531  (in profile)        11
+
+Binary images description not available
+

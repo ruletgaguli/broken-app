@@ -1,0 +1,16 @@
+# Только possible leak контекста mpmc тестового раннера std Rust 1.96.
+# Требуем весь характерный стек; definitely/indirectly lost не подавляются.
+{
+   rust_libtest_mpmc_thread_context
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   ...
+   fun:new_uninit_in<std::thread::thread::Inner, std::alloc::System>
+   ...
+   fun:*3std6thread7current12init_current*
+   ...
+   fun:*3std4sync4mpmc7context*Context3new*
+   ...
+   fun:*4test7console17run_tests_console*
+}
