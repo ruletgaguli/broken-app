@@ -162,6 +162,4 @@ bash scripts/original-sanitizers.sh
 
 GitHub Actions запускается при `push` и `pull_request`: сначала форматирование и Clippy, затем сборка, тесты, проверки бенчмарков и demo. Отдельная задача с `needs: lint` выполняет Miri, Valgrind, ASan и TSan и публикует артефакты даже при ошибке. Настройка workflow готова; удалённый запуск GitHub Actions ещё не проверен.
 
-Локальные команды и отчёты выполнены, но публикация репозиториев и коммиты ещё не сделаны. Перед сдачей нужны ссылка на `broken-app`, ссылка/коммит неизменённого эталона и включение файлов `artifacts/` в коммит. Историю существующих коммитов не переписываем; первоначальной истории здесь не было.
-
 Справочники инструментов: [Miri](https://github.com/rust-lang/miri), [sanitizer'ы Rust](https://doc.rust-lang.org/unstable-book/compiler-flags/sanitizer.html), [Valgrind](https://valgrind.org/docs/manual/manual-core.html), [Criterion](https://bheisler.github.io/criterion.rs/book/user_guide/comparing_functions.html), [Inferno](https://github.com/jonhoo/inferno).
